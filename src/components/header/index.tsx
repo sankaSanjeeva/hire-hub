@@ -5,7 +5,7 @@ import Link from 'next/link';
 import { usePathname } from 'next/navigation';
 import { cn } from '@/lib/utils';
 import { Button } from '../ui/button';
-import { ReactComponent as LogoIcon } from '../../../public/icons/logo.svg';
+import { LogoIcon } from '../../../public/icons';
 
 const navLinks = [
   { label: 'Home', path: '/' },
@@ -25,7 +25,7 @@ export default function Header() {
   };
 
   return (
-    <header className="sticky top-0">
+    <header className="fixed top-0 w-full">
       <div className="mx-auto flex h-20 max-w-screen-xl items-center justify-between text-white">
         <div className="flex items-center gap-2 text-xl font-semibold">
           <LogoIcon />
