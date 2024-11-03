@@ -1,7 +1,7 @@
 import React from 'react';
-import { ReactComponent as LogoIcon } from '../../../public/icons/logo.svg';
 import { Button } from '../ui/button';
 import { Input } from '../ui/input';
+import { LogoIcon } from '../../../public/icons';
 
 export default function Footer() {
   return (
