@@ -1,12 +1,13 @@
 import React from 'react';
+import CenteredContainer from '../centered-container';
 import { Button } from '../ui/button';
 import { Input } from '../ui/input';
 import { LogoIcon } from '../../../public/icons';
 
 export default function Footer() {
   return (
-    <footer className="bg-black px-16 pb-16 pt-24 text-white">
-      <div className="mx-auto max-w-screen-xl">
+    <footer className="bg-black text-white">
+      <CenteredContainer className="pb-16 pt-24">
         <div className="grid gap-10 sm:grid-cols-2 lg:grid-cols-[auto_auto_auto_300px] lg:gap-16 xl:gap-28">
           <div className="flex flex-col items-center gap-5 lg:items-start">
             <div className="inline-flex items-center gap-2">
@@ -71,7 +72,7 @@ export default function Footer() {
             </a>
           </div>
         </div>
-      </div>
+      </CenteredContainer>
     </footer>
   );
 }
