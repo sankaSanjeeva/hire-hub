@@ -6,6 +6,7 @@ import { usePathname } from 'next/navigation';
 import { cn } from '@/lib/utils';
 import { Button } from '../ui/button';
 import { LogoIcon } from '../../../public/icons';
+import CenteredContainer from '../centered-container';
 
 const navLinks = [
   { label: 'Home', path: '/' },
@@ -25,8 +26,8 @@ export default function Header() {
   };
 
   return (
-    <header className="fixed top-0 w-full">
-      <div className="mx-auto flex h-20 max-w-screen-xl items-center justify-between text-white">
+    <header className="fixed top-0 w-full text-white">
+      <CenteredContainer className="flex h-20 items-center justify-between">
         <div className="flex items-center gap-2 text-xl font-semibold">
           <LogoIcon />
           <span>Hire Hub</span>
@@ -50,7 +51,7 @@ export default function Header() {
           <Button variant="ghost">Login</Button>
           <Button>Register</Button>
         </div>
-      </div>
+      </CenteredContainer>
     </header>
   );
 }
