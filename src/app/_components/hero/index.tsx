@@ -17,7 +17,7 @@ export default function Hero() {
   return (
     <section className="flex min-h-svh flex-col">
       <div className="flex flex-grow bg-[linear-gradient(rgba(0,0,0,0.7),rgba(0,0,0,0.7)),url('/images/hero.png')] bg-cover bg-fixed bg-center bg-no-repeat pt-20">
-        <CenteredContainer className="flex-col items-center justify-center">
+        <CenteredContainer className="flex flex-col items-center justify-center">
           <div className="py-10">
             <h1 className="text-center text-4xl font-bold text-white md:text-6xl lg:text-7xl">
               Find Your Dream Job Today!
