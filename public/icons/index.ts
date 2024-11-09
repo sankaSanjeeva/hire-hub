@@ -1,7 +1,12 @@
+export { ReactComponent as BookmarkIcon } from './bookmark.svg';
+export { ReactComponent as BriefcaseIcon } from './briefcase.svg';
 export { ReactComponent as CandidateIcon } from './candidate.svg';
 export { ReactComponent as ChevronIcon } from './chevron.svg';
+export { ReactComponent as ClockIcon } from './clock.svg';
 export { ReactComponent as CompanyIcon } from './company.svg';
 export { ReactComponent as HamburgerIcon } from './hamburger.svg';
+export { ReactComponent as ImageNotFoundIcon } from './image-not-found.svg';
+export { ReactComponent as LocationIcon } from './location.svg';
 export { ReactComponent as LogoAdobeIcon } from './logo-adobe.svg';
 export { ReactComponent as LogoAsanaIcon } from './logo-asana.svg';
 export { ReactComponent as LogoLinearIcon } from './logo-linear.svg';
@@ -9,3 +14,4 @@ export { ReactComponent as LogoSlackIcon } from './logo-slack.svg';
 export { ReactComponent as LogoSpotifyIcon } from './logo-spotify.svg';
 export { ReactComponent as LogoIcon } from './logo.svg';
 export { ReactComponent as SearchIcon } from './search.svg';
+export { ReactComponent as WalletIcon } from './wallet.svg';
