@@ -28,7 +28,7 @@ export default function Hero() {
             </h6>
           </div>
 
-          <div className="flex w-full flex-col overflow-hidden rounded-2xl bg-white sm:w-[600px] lg:w-auto lg:flex-row">
+          <div className="flex w-full flex-col overflow-hidden rounded-2xl bg-white sm:w-[500px] lg:w-auto lg:flex-row">
             <input
               placeholder="Job Title or Company"
               className="h-20 w-full border-none px-5 outline-none placeholder:font-medium placeholder:text-black/50 lg:w-52"

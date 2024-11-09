@@ -1,32 +1,21 @@
 'use client';
 
 import React from 'react';
-import Link from 'next/link';
-import { usePathname } from 'next/navigation';
 import { cn } from '@/lib/utils';
-import { Button } from '../ui/button';
-import { LogoIcon } from '../../../public/icons';
+import { HamburgerIcon, LogoIcon } from '../../../public/icons';
 import CenteredContainer from '../centered-container';
 import { useElementIsVisible } from '@/hook';
-
-const navLinks = [
-  { label: 'Home', path: '/' },
-  { label: 'Jobs', path: '/jobs' },
-  { label: 'About Us', path: '/about-us' },
-  { label: 'Contact Us', path: '/contact-us' },
-];
+import {
+  Sheet,
+  SheetContent,
+  SheetHeader,
+  SheetTitle,
+  SheetTrigger,
+} from '../ui/sheet';
+import { AuthButtons, NavItems } from './components';
 
 export default function Header() {
-  const pathname = usePathname();
-
   const { ref, visible } = useElementIsVisible({ initialVisible: true });
-
-  const isActiveLink = (path: string) => {
-    if (path === '/') {
-      return pathname === '/';
-    }
-    return pathname.startsWith(path);
-  };
 
   return (
     <>
@@ -43,24 +32,29 @@ export default function Header() {
             <LogoIcon />
             <span>Hire Hub</span>
           </div>
-          <nav>
-            <ul className="flex gap-5">
-              {navLinks.map(({ label, path }) => (
-                <li
-                  key={path}
-                  className={cn(
-                    'px-3 py-2 text-white/50 hover:text-white/80',
-                    isActiveLink(path) && 'text-white'
-                  )}
-                >
-                  <Link href={path}>{label}</Link>
-                </li>
-              ))}
-            </ul>
-          </nav>
-          <div className="flex gap-1">
-            <Button variant="ghost">Login</Button>
-            <Button>Register</Button>
+
+          <NavItems className="hidden lg:flex" />
+
+          <AuthButtons className="hidden lg:flex" />
+
+          <div className="block lg:hidden">
+            <Sheet>
+              <SheetTrigger>
+                <HamburgerIcon />
+              </SheetTrigger>
+              <SheetContent
+                side="left"
+                className="flex flex-col border-none bg-black/70 backdrop-blur"
+              >
+                <SheetHeader>
+                  <SheetTitle />
+                </SheetHeader>
+
+                <NavItems className="flex flex-grow lg:hidden [&>ul]:flex-col" />
+
+                <AuthButtons className="flex justify-center lg:hidden" />
+              </SheetContent>
+            </Sheet>
           </div>
         </CenteredContainer>
       </header>
