@@ -1,6 +1,7 @@
 export { ReactComponent as CandidateIcon } from './candidate.svg';
 export { ReactComponent as ChevronIcon } from './chevron.svg';
 export { ReactComponent as CompanyIcon } from './company.svg';
+export { ReactComponent as HamburgerIcon } from './hamburger.svg';
 export { ReactComponent as LogoAdobeIcon } from './logo-adobe.svg';
 export { ReactComponent as LogoAsanaIcon } from './logo-asana.svg';
 export { ReactComponent as LogoLinearIcon } from './logo-linear.svg';
