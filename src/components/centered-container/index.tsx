@@ -7,7 +7,10 @@ export default function CenteredContainer({
 }: React.HTMLAttributes<HTMLDivElement>) {
   return (
     <div
-      className={cn('mx-auto max-w-screen-xl px-5 sm:px-16', className)}
+      className={cn(
+        'mx-auto max-w-[1440px] px-5 sm:px-10 md:px-16 lg:px-[72px]',
+        className
+      )}
       {...props}
     />
   );
