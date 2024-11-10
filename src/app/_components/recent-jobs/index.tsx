@@ -1,4 +1,4 @@
-import { CenteredContainer, JobCard } from '@/components';
+import { CenteredContainer, JobCard, SectionHeader } from '@/components';
 import { Button } from '@/components/ui/button';
 import Link from 'next/link';
 
@@ -6,16 +6,17 @@ export default function RecentJobs() {
   return (
     <section>
       <CenteredContainer className="py-14">
-        <div className="space-y-10">
-          <h1 className="text-5xl font-bold">Recent Jobs Available</h1>
-          <div className="flex items-center justify-between">
-            <p>Lorem ipsum dolor, sit amet consectetur adipisicing elit.</p>
-            <Link href="jobs">
-              <Button variant="link" className="text-xl">
-                View All
-              </Button>
-            </Link>
-          </div>
+        <div className="flex items-end">
+          <SectionHeader
+            main="Recent Jobs Available"
+            sub="Lorem ipsum dolor, sit amet consectetur adipisicing elit."
+            className="flex-grow"
+          />
+          <Link href="jobs">
+            <Button variant="link" className="text-xl">
+              View All
+            </Button>
+          </Link>
         </div>
 
         <div className="mt-14 space-y-6">

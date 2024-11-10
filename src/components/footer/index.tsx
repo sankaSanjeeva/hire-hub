@@ -64,10 +64,10 @@ export default function Footer() {
             © Copyright Hire Hub {new Date().getFullYear()}.
           </span>
           <div className="inline-flex gap-5">
-            <a href="#" className="underline">
+            <a href="#" className="underline underline-offset-4">
               Privacy Policy
             </a>
-            <a href="#" className="underline">
+            <a href="#" className="underline underline-offset-4">
               Terms & Conditions
             </a>
           </div>

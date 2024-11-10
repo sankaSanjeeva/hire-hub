@@ -5,3 +5,12 @@
 body {
   font-family: Arial, Helvetica, sans-serif;
 }
+
+@layer utilities {
+  .ellipsis-2-lines {
+    @apply overflow-hidden text-ellipsis;
+    display: -webkit-box;
+    -webkit-box-orient: vertical;
+    -webkit-line-clamp: 2;
+  }
+}
