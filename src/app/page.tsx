@@ -1,4 +1,4 @@
-import { Categories, Hero, RecentJobs } from './_components';
+import { Categories, Hero, Info, RecentJobs } from './_components';
 
 export default function Home() {
   return (
@@ -6,6 +6,7 @@ export default function Home() {
       <Hero />
       <RecentJobs />
       <Categories />
+      <Info />
     </>
   );
 }
