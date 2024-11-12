@@ -13,4 +13,11 @@ body {
     -webkit-box-orient: vertical;
     -webkit-line-clamp: 2;
   }
+
+  .ellipsis-4-lines {
+    @apply overflow-hidden text-ellipsis;
+    display: -webkit-box;
+    -webkit-box-orient: vertical;
+    -webkit-line-clamp: 4;
+  }
 }
