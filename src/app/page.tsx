@@ -1,4 +1,11 @@
-import { Categories, Hero, Info, RecentJobs, Reviews } from './_components';
+import {
+  Categories,
+  Hero,
+  Info,
+  NewsAndBlogs,
+  RecentJobs,
+  Reviews,
+} from './_components';
 
 export default function Home() {
   return (
@@ -8,6 +15,7 @@ export default function Home() {
       <Categories />
       <Info />
       <Reviews />
+      <NewsAndBlogs />
     </>
   );
 }
