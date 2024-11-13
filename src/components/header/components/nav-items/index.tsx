@@ -28,7 +28,7 @@ export default function NavItems({ className }: { className?: string }) {
             <li
               key={path}
               className={cn(
-                'px-3 py-2 text-white/50 hover:text-white/80',
+                'px-3 py-2 font-semibold text-white/50 hover:text-white/80',
                 isActiveLink(path) && 'text-white'
               )}
             >
