@@ -23,7 +23,7 @@ export default function Header() {
 
       <header
         className={cn(
-          'supports-backdrop-blur:bg-slate/60 fixed top-0 w-full flex-none py-5 text-white backdrop-blur transition-all duration-500',
+          'supports-backdrop-blur:bg-slate/60 fixed top-0 z-10 w-full flex-none py-5 text-white backdrop-blur transition-all duration-500',
           !visible && 'bg-black/70 py-2'
         )}
       >

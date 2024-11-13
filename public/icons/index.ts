@@ -1,3 +1,4 @@
+export { ReactComponent as ArrowIcon } from './arrow.svg';
 export { ReactComponent as BookmarkIcon } from './bookmark.svg';
 export { ReactComponent as BriefcaseIcon } from './briefcase.svg';
 export { ReactComponent as CandidateIcon } from './candidate.svg';
