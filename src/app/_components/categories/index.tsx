@@ -75,7 +75,7 @@ export default function Categories() {
                 height={40}
                 alt={category.name}
               />
-              <h3 className="ellipsis-2-lines w-[188px] text-center text-2xl font-bold">
+              <h3 className="line-clamp-2 w-[188px] text-center text-2xl font-bold">
                 {category.name}
               </h3>
               <Badge>{category.jobCount} jobs</Badge>

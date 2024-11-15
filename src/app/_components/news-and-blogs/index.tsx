@@ -54,7 +54,7 @@ export default function NewsAndBlogs() {
 
               <div className="mt-5">
                 <span className="text-black/80">{item.date}</span>
-                <h4 className="ellipsis-2-lines mb-2 mt-2 text-2xl font-semibold">
+                <h4 className="mb-2 mt-2 line-clamp-2 text-2xl font-semibold">
                   {item.title}
                 </h4>
                 <Button variant="link" className="p-0">

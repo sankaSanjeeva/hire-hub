@@ -49,7 +49,7 @@ export default function Reviews() {
                   ))}
                 </div>
                 <h2 className="text-2xl font-semibold">{review.title}</h2>
-                <p className="ellipsis-4-lines italic">{review.message}</p>
+                <p className="line-clamp-4 italic">{review.message}</p>
               </div>
 
               <div className="relative">
