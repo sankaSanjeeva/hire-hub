@@ -11,6 +11,7 @@ const badgeVariants = cva(
         default: 'bg-theme/10 text-theme',
         destructive: 'bg-red-500/10 text-red-500',
         outline: 'border border-theme text-theme',
+        quantity: 'rounded-xl bg-white py-1 text-gray-500',
       },
     },
     defaultVariants: {

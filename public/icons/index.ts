@@ -5,6 +5,7 @@ export { ReactComponent as CandidateIcon } from './candidate.svg';
 export { ReactComponent as ChevronIcon } from './chevron.svg';
 export { ReactComponent as ClockIcon } from './clock.svg';
 export { ReactComponent as CompanyIcon } from './company.svg';
+export { ReactComponent as FilterIcon } from './filter.svg';
 export { ReactComponent as HamburgerIcon } from './hamburger.svg';
 export { ReactComponent as ImageNotFoundIcon } from './image-not-found.svg';
 export { ReactComponent as LocationIcon } from './location.svg';

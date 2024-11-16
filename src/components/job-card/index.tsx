@@ -53,7 +53,7 @@ export default function JobCard() {
             <span className="font-semibold text-gray-500">$40000-$42000</span>
           </div>
           <div className="flex gap-3">
-            <LocationIcon />
+            <LocationIcon className="h-6 w-6 text-theme" />
             <span className="font-semibold text-gray-500">New-York, USA</span>
           </div>
         </div>
