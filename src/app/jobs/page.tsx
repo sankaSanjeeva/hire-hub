@@ -1,4 +1,4 @@
-import { Overview } from './_components';
+import { Overview, TopCompanies } from './_components';
 
 export default function Jobs() {
   return (
@@ -7,6 +7,7 @@ export default function Jobs() {
         <h1 className="text-6xl font-bold text-white">Jobs</h1>
       </section>
       <Overview />
+      <TopCompanies />
     </div>
   );
 }
