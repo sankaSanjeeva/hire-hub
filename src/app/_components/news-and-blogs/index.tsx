@@ -45,7 +45,7 @@ export default function NewsAndBlogs() {
                   width={0}
                   height={320}
                   sizes="100vw"
-                  className="h-80 w-full rounded-[20px] object-cover"
+                  className="h-80 w-full rounded-3xl object-cover"
                   placeholder="blur"
                   blurDataURL="data:image/gif;base64,R0lGODlhAQABAPAAAOr08////yH5BAAAAAAALAAAAAABAAEAAAICRAEAOw=="
                   alt="news"

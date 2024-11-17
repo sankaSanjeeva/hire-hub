@@ -9,7 +9,7 @@ export default function Filter({ className }: { className?: string }) {
   return (
     <aside
       className={cn(
-        'sticky top-[74px] h-fit max-w-80 space-y-6 rounded-[20px] bg-theme/10 px-5 py-10',
+        'sticky top-[74px] h-fit max-w-80 space-y-6 rounded-3xl bg-theme/10 px-5 py-10',
         className
       )}
     >

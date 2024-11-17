@@ -39,7 +39,7 @@ export default function Reviews() {
         <div className="mt-14 flex flex-wrap justify-center gap-6">
           {reviews.map((review) => (
             <div
-              className="flex max-w-96 flex-col rounded-[20px] bg-white p-10"
+              className="flex max-w-96 flex-col rounded-3xl bg-white p-10"
               key={review.id}
             >
               <div className="flex flex-grow flex-col gap-5">

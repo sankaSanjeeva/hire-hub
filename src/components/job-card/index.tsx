@@ -11,7 +11,7 @@ import { Button } from '../ui/button';
 
 export default function JobCard() {
   return (
-    <div className="rounded-2xl p-5 shadow-[0_4px_8px_0_white] shadow-theme/10 lg:p-10">
+    <div className="rounded-2xl p-5 shadow-card lg:p-10">
       <div className="flex justify-between">
         <Badge>10 min ago</Badge>
         <button type="button" className="p-1">

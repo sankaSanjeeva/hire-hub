@@ -67,7 +67,7 @@ export default function Categories() {
           {categories.map((category) => (
             <div
               key={category.id}
-              className="flex h-[280px] w-[300px] flex-col items-center justify-between rounded-[20px] bg-white p-14 shadow-[0_4px_8px_0_white] shadow-theme/10"
+              className="flex h-[280px] w-[300px] flex-col items-center justify-between rounded-3xl bg-white p-14 shadow-card"
             >
               <Image
                 src={category.icon}

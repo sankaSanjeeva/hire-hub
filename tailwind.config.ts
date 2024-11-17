@@ -13,6 +13,12 @@ const config: Config = {
       colors: {
         theme: '#309689',
       },
+      borderRadius: {
+        '3xl': '20px',
+      },
+      boxShadow: {
+        card: '0 4px 8px 0 #30968914', // theme * 0.08
+      },
     },
   },
   plugins: [animate],
