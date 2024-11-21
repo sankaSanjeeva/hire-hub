@@ -1,6 +1,7 @@
 import {
   ApplicationStatus,
   EmploymentType,
+  ExperienceLevel,
   Gender,
   JobStatus,
   Role,
@@ -31,6 +32,13 @@ export const EmploymentTypeDisplay: Record<EmploymentType, string> = {
   [EmploymentType.FULL_TIME]: 'Full Time',
   [EmploymentType.INTERNSHIP]: 'Internship',
   [EmploymentType.PART_TIME]: 'Part Time',
+};
+
+export const ExperienceLevelDisplay: Record<ExperienceLevel, string> = {
+  [ExperienceLevel.EXPERT]: 'Expert',
+  [ExperienceLevel.FRESHER]: 'Fresher',
+  [ExperienceLevel.INTERMEDIATE]: 'Intermediate',
+  [ExperienceLevel.NONE]: 'No-experience',
 };
 
 export const ApplicationStatusDisplay: Record<ApplicationStatus, string> = {
