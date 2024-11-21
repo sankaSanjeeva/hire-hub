@@ -34,14 +34,14 @@ export default function Hero() {
               className="h-20 w-full border-none px-5 outline-none placeholder:font-medium placeholder:text-black/50 lg:w-52"
             />
             <div className="mx-5 h-0.5 shrink-0 bg-[#C7C7C7] lg:mx-0 lg:my-auto lg:h-10 lg:w-0.5" />
-            <button className="inline-flex h-20 w-full items-center justify-between gap-5 px-5 transition-opacity hover:opacity-70 lg:w-52">
-              <span className="font-medium text-black/50">Select Location</span>
-              <ChevronIcon className="!h-6 !w-6" />
+            <button className="inline-flex h-20 w-full items-center justify-between gap-5 px-5 text-black/50 transition-opacity hover:opacity-70 lg:w-52">
+              <span className="font-medium">Select Location</span>
+              <ChevronIcon />
             </button>
             <div className="mx-5 h-0.5 shrink-0 bg-[#C7C7C7] lg:mx-0 lg:my-auto lg:h-10 lg:w-0.5" />
-            <button className="inline-flex h-20 w-full items-center justify-between gap-5 px-5 transition-opacity hover:opacity-70 lg:w-52">
-              <span className="font-medium text-black/50">Select Category</span>
-              <ChevronIcon className="!h-6 !w-6" />
+            <button className="inline-flex h-20 w-full items-center justify-between gap-5 px-5 text-black/50 transition-opacity hover:opacity-70 lg:w-52">
+              <span className="font-medium">Select Category</span>
+              <ChevronIcon />
             </button>
             <Button className="h-20 rounded-none px-7 text-lg">
               <SearchIcon />

@@ -39,7 +39,7 @@ export default function Reviews() {
         <div className="mt-14 flex flex-wrap justify-center gap-6">
           {reviews.map((review) => (
             <div
-              className="flex max-w-96 flex-col rounded-[20px] bg-white p-10"
+              className="flex max-w-96 flex-col rounded-3xl bg-white p-10"
               key={review.id}
             >
               <div className="flex flex-grow flex-col gap-5">
@@ -49,7 +49,7 @@ export default function Reviews() {
                   ))}
                 </div>
                 <h2 className="text-2xl font-semibold">{review.title}</h2>
-                <p className="ellipsis-4-lines italic">{review.message}</p>
+                <p className="line-clamp-4 italic">{review.message}</p>
               </div>
 
               <div className="relative">

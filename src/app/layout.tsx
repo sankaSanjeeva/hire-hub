@@ -3,7 +3,10 @@ import { Figtree } from 'next/font/google';
 import { Footer, Header } from '@/components';
 import './globals.css';
 
-const figtree = Figtree({ subsets: ['latin'] });
+const figtree = Figtree({
+  subsets: ['latin'],
+  weight: ['400', '500', '600', '700'],
+});
 
 export const metadata: Metadata = {
   title: 'Hire Hub',

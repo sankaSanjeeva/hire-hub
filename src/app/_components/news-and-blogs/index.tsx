@@ -45,7 +45,7 @@ export default function NewsAndBlogs() {
                   width={0}
                   height={320}
                   sizes="100vw"
-                  className="h-80 w-full rounded-[20px] object-cover"
+                  className="h-80 w-full rounded-3xl object-cover"
                   placeholder="blur"
                   blurDataURL="data:image/gif;base64,R0lGODlhAQABAPAAAOr08////yH5BAAAAAAALAAAAAABAAEAAAICRAEAOw=="
                   alt="news"
@@ -54,7 +54,7 @@ export default function NewsAndBlogs() {
 
               <div className="mt-5">
                 <span className="text-black/80">{item.date}</span>
-                <h4 className="ellipsis-2-lines mb-2 mt-2 text-2xl font-semibold">
+                <h4 className="mb-2 mt-2 line-clamp-2 text-2xl font-semibold">
                   {item.title}
                 </h4>
                 <Button variant="link" className="p-0">
