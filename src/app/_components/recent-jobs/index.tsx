@@ -1,8 +1,25 @@
-import { CenteredContainer, JobCard, SectionHeader } from '@/components';
-import { Button } from '@/components/ui/button';
 import Link from 'next/link';
+import { Button } from '@/components/ui/button';
+import { CenteredContainer, JobCard, SectionHeader } from '@/components';
+import prisma from '@/lib/db';
 
-export default function RecentJobs() {
+export default async function RecentJobs() {
+  const jobs = await prisma.job.findMany({
+    orderBy: {
+      postedDate: 'desc',
+    },
+    include: {
+      company: {
+        include: {
+          location: true,
+        },
+      },
+      category: true,
+      location: true,
+    },
+    take: 5,
+  });
+
   return (
     <section>
       <CenteredContainer className="py-14">
@@ -20,8 +37,8 @@ export default function RecentJobs() {
         </div>
 
         <div className="mt-14 space-y-6">
-          {Array.from({ length: 5 }, (_, k) => k + 1).map((item) => (
-            <JobCard key={item} />
+          {jobs.map((job) => (
+            <JobCard key={job.id} {...job} />
           ))}
         </div>
       </CenteredContainer>

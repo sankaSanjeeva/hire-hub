@@ -1,4 +1,4 @@
-import { CenteredContainer, JobCard } from '@/components';
+import { CenteredContainer } from '@/components';
 import {
   Sheet,
   SheetContent,
@@ -49,11 +49,11 @@ export default function Overview() {
             </Select>
           </div>
 
-          <div className="mt-10 space-y-6">
+          {/* <div className="mt-10 space-y-6">
             {Array.from({ length: 10 }, (_, k) => k + 1).map((item) => (
               <JobCard key={item} />
             ))}
-          </div>
+          </div> */}
 
           <div className="mt-10 flex gap-5">
             <div className="flex flex-grow justify-center gap-6">
