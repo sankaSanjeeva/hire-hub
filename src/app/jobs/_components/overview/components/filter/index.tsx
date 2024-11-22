@@ -1,11 +1,54 @@
 import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
-import { Checkbox } from '@/components/ui/checkbox';
 import { Badge } from '@/components/ui/badge';
 import { cn } from '@/lib/utils';
-import { LocationIcon, SearchIcon } from '../../../../../../../public/icons';
+import prisma from '@/lib/db';
+import {
+  EmploymentTypeDisplay,
+  ExperienceLevelDisplay,
+} from '@/constants/enum-mapping';
+import { LocationIcon } from '../../../../../../../public/icons';
+import { CheckBoxItem, Search } from './components';
 
-export default function Filter({ className }: { className?: string }) {
+export default async function Filter({ className }: { className?: string }) {
+  const categories = await prisma.jobCategory.findMany({
+    include: {
+      _count: true,
+    },
+    where: {
+      jobs: {
+        some: {},
+      },
+    },
+    take: 5,
+  });
+
+  const employmentTypeJobs = await prisma.job.groupBy({
+    by: ['employmentType'],
+    _count: true,
+  });
+
+  const experienceLevelJobs = await prisma.job.groupBy({
+    by: ['experienceLevel'],
+    _count: true,
+  });
+
+  const jobsByPostedDate = await prisma.$queryRaw<
+    { range: string; count: bigint }[]
+  >`
+    SELECT
+      CASE
+        WHEN "postedDate" >= NOW() - INTERVAL '1 hour' THEN 'Last Hour'
+        WHEN "postedDate" >= NOW() - INTERVAL '24 hours' THEN 'Last 24 Hours'
+        WHEN "postedDate" >= NOW() - INTERVAL '7 days' THEN 'Last 7 Days'
+        WHEN "postedDate" >= NOW() - INTERVAL '30 days' THEN 'Last 30 Days'
+        ELSE 'All'
+      END AS range,
+      COUNT(*) AS count
+    FROM "Job"
+    GROUP BY range;
+  `;
+
   return (
     <aside
       className={cn(
@@ -13,18 +56,7 @@ export default function Filter({ className }: { className?: string }) {
         className
       )}
     >
-      <div className="space-y-5">
-        <span className="text-xl font-semibold leading-none">
-          Search by Job Title
-        </span>
-        <div className="relative">
-          <SearchIcon className="absolute left-3 top-1/2 h-5 w-5 -translate-y-1/2 text-gray-500" />
-          <Input
-            className="rounded-xl pl-10"
-            placeholder="Job title or company"
-          />
-        </div>
-      </div>
+      <Search />
 
       <div className="space-y-5">
         <span className="text-xl font-semibold leading-none">Location</span>
@@ -40,14 +72,14 @@ export default function Filter({ className }: { className?: string }) {
       <div className="space-y-5">
         <span className="text-xl font-semibold leading-none">Category</span>
         <ul className="space-y-3">
-          {[1, 2, 3, 4, 5].map((x) => (
-            <li className="flex items-center gap-2" key={x}>
-              <Checkbox id={`category-${x}`} />
-              <div className="flex-grow">
-                <label htmlFor={`category-${x}`}>Commerce</label>
-              </div>
-              <Badge variant="quantity">10</Badge>
-            </li>
+          {categories.map((category) => (
+            <CheckBoxItem
+              key={category.id}
+              id={category.id}
+              name={category.name}
+              count={category._count.jobs}
+              paramName="category"
+            />
           ))}
         </ul>
         <Button className="w-full">Show More</Button>
@@ -56,14 +88,14 @@ export default function Filter({ className }: { className?: string }) {
       <div className="space-y-5">
         <span className="text-xl font-semibold leading-none">Job Type</span>
         <ul className="space-y-3">
-          {[1, 2, 3, 4, 5].map((x) => (
-            <li className="flex items-center gap-2" key={x}>
-              <Checkbox id={`job-type-${x}`} />
-              <div className="flex-grow">
-                <label htmlFor={`job-type-${x}`}>Full Time</label>
-              </div>
-              <Badge variant="quantity">10</Badge>
-            </li>
+          {employmentTypeJobs.map((type) => (
+            <CheckBoxItem
+              key={type.employmentType}
+              id={type.employmentType}
+              name={EmploymentTypeDisplay[type.employmentType]}
+              count={type._count}
+              paramName="type"
+            />
           ))}
         </ul>
       </div>
@@ -73,14 +105,14 @@ export default function Filter({ className }: { className?: string }) {
           Experience Level
         </span>
         <ul className="space-y-3">
-          {[1, 2, 3, 4].map((x) => (
-            <li className="flex items-center gap-2" key={x}>
-              <Checkbox id={`xp-${x}`} />
-              <div className="flex-grow">
-                <label htmlFor={`xp-${x}`}>Fresher</label>
-              </div>
-              <Badge variant="quantity">10</Badge>
-            </li>
+          {experienceLevelJobs.map((level) => (
+            <CheckBoxItem
+              key={level.experienceLevel}
+              id={level.experienceLevel}
+              name={ExperienceLevelDisplay[level.experienceLevel]}
+              count={level._count}
+              paramName="level"
+            />
           ))}
         </ul>
       </div>
@@ -88,14 +120,14 @@ export default function Filter({ className }: { className?: string }) {
       <div className="space-y-5">
         <span className="text-xl font-semibold leading-none">Date Posted</span>
         <ul className="space-y-3">
-          {[1, 2, 3, 4].map((x) => (
-            <li className="flex items-center gap-2" key={x}>
-              <Checkbox id={`date-${x}`} />
-              <div className="flex-grow">
-                <label htmlFor={`date-${x}`}>Fresher</label>
-              </div>
-              <Badge variant="quantity">10</Badge>
-            </li>
+          {jobsByPostedDate.map((date) => (
+            <CheckBoxItem
+              key={date.range}
+              id={date.range}
+              name={date.range}
+              count={Number(date.count)}
+              paramName="range"
+            />
           ))}
         </ul>
       </div>
@@ -103,9 +135,16 @@ export default function Filter({ className }: { className?: string }) {
       <div className="space-y-5">
         <span className="text-xl font-semibold leading-none">Tags</span>
         <div className="flex flex-wrap gap-3">
-          {[1, 2, 3, 4, 5].map((x) => (
-            <Badge key={x} className="rounded-xl">
-              badge
+          {[
+            'engineering',
+            'design',
+            'ui/ux',
+            'marketing',
+            'management',
+            'construction',
+          ].map((tag) => (
+            <Badge key={tag} className="rounded-xl">
+              {tag}
             </Badge>
           ))}
         </div>
