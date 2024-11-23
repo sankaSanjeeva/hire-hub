@@ -9,6 +9,7 @@ import {
 } from '@/constants/enum-mapping';
 import { LocationIcon } from '../../../../../../../public/icons';
 import { CheckBoxItem, Search } from './components';
+import { Suspense } from 'react';
 
 export default async function Filter({ className }: { className?: string }) {
   const categories = await prisma.jobCategory.findMany({
@@ -56,7 +57,9 @@ export default async function Filter({ className }: { className?: string }) {
         className
       )}
     >
-      <Search />
+      <Suspense>
+        <Search />
+      </Suspense>
 
       <div className="space-y-5">
         <span className="text-xl font-semibold leading-none">Location</span>
@@ -73,13 +76,14 @@ export default async function Filter({ className }: { className?: string }) {
         <span className="text-xl font-semibold leading-none">Category</span>
         <ul className="space-y-3">
           {categories.map((category) => (
-            <CheckBoxItem
-              key={category.id}
-              id={category.id}
-              name={category.name}
-              count={category._count.jobs}
-              paramName="category"
-            />
+            <Suspense key={category.id}>
+              <CheckBoxItem
+                id={category.id}
+                name={category.name}
+                count={category._count.jobs}
+                paramName="category"
+              />
+            </Suspense>
           ))}
         </ul>
         <Button className="w-full">Show More</Button>
@@ -89,13 +93,14 @@ export default async function Filter({ className }: { className?: string }) {
         <span className="text-xl font-semibold leading-none">Job Type</span>
         <ul className="space-y-3">
           {employmentTypeJobs.map((type) => (
-            <CheckBoxItem
-              key={type.employmentType}
-              id={type.employmentType}
-              name={EmploymentTypeDisplay[type.employmentType]}
-              count={type._count}
-              paramName="type"
-            />
+            <Suspense key={type.employmentType}>
+              <CheckBoxItem
+                id={type.employmentType}
+                name={EmploymentTypeDisplay[type.employmentType]}
+                count={type._count}
+                paramName="type"
+              />
+            </Suspense>
           ))}
         </ul>
       </div>
@@ -106,13 +111,14 @@ export default async function Filter({ className }: { className?: string }) {
         </span>
         <ul className="space-y-3">
           {experienceLevelJobs.map((level) => (
-            <CheckBoxItem
-              key={level.experienceLevel}
-              id={level.experienceLevel}
-              name={ExperienceLevelDisplay[level.experienceLevel]}
-              count={level._count}
-              paramName="level"
-            />
+            <Suspense key={level.experienceLevel}>
+              <CheckBoxItem
+                id={level.experienceLevel}
+                name={ExperienceLevelDisplay[level.experienceLevel]}
+                count={level._count}
+                paramName="level"
+              />
+            </Suspense>
           ))}
         </ul>
       </div>
@@ -121,13 +127,14 @@ export default async function Filter({ className }: { className?: string }) {
         <span className="text-xl font-semibold leading-none">Date Posted</span>
         <ul className="space-y-3">
           {jobsByPostedDate.map((date) => (
-            <CheckBoxItem
-              key={date.range}
-              id={date.range}
-              name={date.range}
-              count={Number(date.count)}
-              paramName="range"
-            />
+            <Suspense key={date.range}>
+              <CheckBoxItem
+                id={date.range}
+                name={date.range}
+                count={Number(date.count)}
+                paramName="range"
+              />
+            </Suspense>
           ))}
         </ul>
       </div>

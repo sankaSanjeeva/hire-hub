@@ -11,6 +11,9 @@ CREATE TYPE "JobStatus" AS ENUM ('DRAFT', 'ACTIVE', 'COMPLETE');
 CREATE TYPE "EmploymentType" AS ENUM ('FULL_TIME', 'PART_TIME', 'CONTRACT', 'INTERNSHIP', 'FREELANCE');
 
 -- CreateEnum
+CREATE TYPE "ExperienceLevel" AS ENUM ('NONE', 'FRESHER', 'INTERMEDIATE', 'EXPERT');
+
+-- CreateEnum
 CREATE TYPE "ApplicationStatus" AS ENUM ('PENDING', 'ACCEPTED', 'REJECTED');
 
 -- CreateTable
@@ -51,6 +54,7 @@ CREATE TABLE "Job" (
     "salary" DOUBLE PRECISION,
     "postedDate" TIMESTAMP(3),
     "status" "JobStatus" NOT NULL DEFAULT 'ACTIVE',
+    "experienceLevel" "ExperienceLevel" NOT NULL,
     "companyId" TEXT NOT NULL,
     "categoryId" TEXT NOT NULL,
 
@@ -130,6 +134,12 @@ CREATE UNIQUE INDEX "Location_companyId_key" ON "Location"("companyId");
 
 -- CreateIndex
 CREATE UNIQUE INDEX "Location_jobId_key" ON "Location"("jobId");
+
+-- CreateIndex
+CREATE UNIQUE INDEX "JobCategory_name_key" ON "JobCategory"("name");
+
+-- CreateIndex
+CREATE UNIQUE INDEX "Skill_name_key" ON "Skill"("name");
 
 -- CreateIndex
 CREATE UNIQUE INDEX "_JobToSkill_AB_unique" ON "_JobToSkill"("A", "B");
