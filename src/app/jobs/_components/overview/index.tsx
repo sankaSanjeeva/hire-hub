@@ -1,3 +1,4 @@
+import { Suspense } from 'react';
 import { CenteredContainer } from '@/components';
 import {
   Sheet,
@@ -49,7 +50,9 @@ export default function Overview() {
             </Select>
           </div>
 
-          <Result />
+          <Suspense>
+            <Result />
+          </Suspense>
 
           <div className="mt-10 flex gap-5">
             <div className="flex flex-grow justify-center gap-6">
