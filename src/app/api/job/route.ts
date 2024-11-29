@@ -1,16 +1,38 @@
 import { NextRequest } from 'next/server';
+import { subDays, subHours } from 'date-fns';
+import { EmploymentType, ExperienceLevel, Prisma } from '@prisma/client';
+import { getPaginatedData } from '@/lib/utils';
 import prisma from '@/lib/db';
-import { EmploymentType, ExperienceLevel } from '@prisma/client';
 
 export async function GET(request: NextRequest) {
   const searchParams = request.nextUrl.searchParams;
 
+  const page = Number(searchParams.get('page') ?? '1');
+  const limit = Number(searchParams.get('limit') ?? '10');
+  const sortBy = searchParams.get('sortBy');
   const search = searchParams.get('search') ?? '';
   const categories = searchParams.get('category')?.split(',');
   const types = searchParams.get('type')?.split(',');
   const levels = searchParams.get('level')?.split(',');
+  const range = searchParams.get('range');
 
-  const jobs = await prisma.job.findMany({
+  const getDateRange = () => {
+    switch (range) {
+      case 'Last Hour':
+        return subHours(new Date(), 1);
+      case 'Last 24 Hours':
+        return subDays(new Date(), 1);
+      case 'Last 7 Days':
+        return subDays(new Date(), 7);
+      case 'Last 30 Days':
+        return subDays(new Date(), 30);
+
+      default:
+        return null;
+    }
+  };
+
+  const query: Prisma.JobFindManyArgs = {
     where: {
       AND: [
         {
@@ -44,6 +66,15 @@ export async function GET(request: NextRequest) {
             experienceLevel: level as ExperienceLevel,
           })),
         },
+        ...(getDateRange()
+          ? [
+              {
+                postedDate: {
+                  gt: getDateRange()!,
+                },
+              },
+            ]
+          : []),
       ],
     },
     include: {
@@ -55,8 +86,20 @@ export async function GET(request: NextRequest) {
       category: true,
       location: true,
     },
-    take: 10,
-  });
+    orderBy: {
+      postedDate: sortBy === 'asc' ? 'asc' : 'desc',
+    },
+    skip: (page - 1) * limit,
+    take: limit,
+  };
 
-  return Response.json(jobs);
+  const [jobs, count] = await prisma.$transaction([
+    prisma.job.findMany(query),
+    prisma.job.count({ where: query.where }),
+  ]);
+
+  return Response.json({
+    data: jobs,
+    pagination: getPaginatedData(page, limit, count),
+  });
 }

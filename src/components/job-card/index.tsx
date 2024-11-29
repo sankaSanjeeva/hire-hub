@@ -1,4 +1,5 @@
 import Image from 'next/image';
+import { formatDistance } from 'date-fns';
 import { Location, Prisma } from '@prisma/client';
 import { EmploymentTypeDisplay } from '@/constants/enum-mapping';
 import {
@@ -33,13 +34,20 @@ export default function JobCard({
   employmentType,
   salary,
   location,
+  postedDate,
 }: JobWithCompany) {
   const jobLocation = location ?? company.location;
 
   return (
     <div className="rounded-2xl p-5 shadow-card lg:p-10">
       <div className="flex justify-between">
-        <Badge>10 min ago</Badge>
+        {postedDate && (
+          <Badge>
+            {formatDistance(postedDate, new Date(), {
+              addSuffix: true,
+            })}
+          </Badge>
+        )}
         <button type="button" className="p-1">
           <BookmarkIcon />
         </button>
