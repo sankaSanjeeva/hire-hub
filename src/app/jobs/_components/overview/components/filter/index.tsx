@@ -1,3 +1,4 @@
+import { Suspense } from 'react';
 import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
 import { Badge } from '@/components/ui/badge';
@@ -8,8 +9,7 @@ import {
   ExperienceLevelDisplay,
 } from '@/constants/enum-mapping';
 import { LocationIcon } from '../../../../../../../public/icons';
-import { CheckBoxItem, Search } from './components';
-import { Suspense } from 'react';
+import { CheckBoxItem, RadioGroupItem, Search } from './components';
 
 export default async function Filter({ className }: { className?: string }) {
   const categories = await prisma.jobCategory.findMany({
@@ -126,16 +126,16 @@ export default async function Filter({ className }: { className?: string }) {
       <div className="space-y-5">
         <span className="text-xl font-semibold leading-none">Date Posted</span>
         <ul className="space-y-3">
-          {jobsByPostedDate.map((date) => (
-            <Suspense key={date.range}>
-              <CheckBoxItem
-                id={date.range}
-                name={date.range}
-                count={Number(date.count)}
-                paramName="range"
-              />
-            </Suspense>
-          ))}
+          <Suspense>
+            <RadioGroupItem
+              items={jobsByPostedDate.map(({ range, count }) => ({
+                name: range,
+                count: Number(count),
+              }))}
+              paramName="range"
+              defaultValue="All"
+            />
+          </Suspense>
         </ul>
       </div>
 
