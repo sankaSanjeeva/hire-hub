@@ -48,6 +48,8 @@ export default function Result() {
   const type = searchParams.get('type');
   const level = searchParams.get('level');
   const range = searchParams.get('range');
+  const salaryMin = searchParams.get('salaryMin');
+  const salaryMax = searchParams.get('salaryMax');
 
   const handlePage = (newPage: number) => {
     replace(update('page', `${newPage}`), { scroll: false });
@@ -66,10 +68,22 @@ export default function Result() {
       ...(type ? { type } : {}),
       ...(level ? { level } : {}),
       ...(range ? { range } : {}),
+      ...(salaryMin ? { salaryMin } : {}),
+      ...(salaryMax ? { salaryMax } : {}),
     }).then((res) => {
       setData(res);
     });
-  }, [category, search, type, level, range, page, sortBy]);
+  }, [
+    category,
+    search,
+    type,
+    level,
+    range,
+    page,
+    sortBy,
+    salaryMin,
+    salaryMax,
+  ]);
 
   return (
     <>
