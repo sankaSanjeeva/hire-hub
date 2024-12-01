@@ -15,6 +15,8 @@ export async function GET(request: NextRequest) {
   const types = searchParams.get('type')?.split(',');
   const levels = searchParams.get('level')?.split(',');
   const range = searchParams.get('range');
+  const salaryMin = searchParams.get('salaryMin');
+  const salaryMax = searchParams.get('salaryMax');
 
   const getDateRange = () => {
     switch (range) {
@@ -75,6 +77,8 @@ export async function GET(request: NextRequest) {
               },
             ]
           : []),
+        ...(salaryMin ? [{ salary: { gte: Number(salaryMin) } }] : []),
+        ...(salaryMax ? [{ salary: { lte: Number(salaryMax) } }] : []),
       ],
     },
     include: {

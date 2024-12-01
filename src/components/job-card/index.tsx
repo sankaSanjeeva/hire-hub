@@ -41,13 +41,15 @@ export default function JobCard({
   return (
     <div className="rounded-2xl p-5 shadow-card lg:p-10">
       <div className="flex justify-between">
-        {postedDate && (
-          <Badge>
-            {formatDistance(postedDate, new Date(), {
-              addSuffix: true,
-            })}
-          </Badge>
-        )}
+        <div>
+          {postedDate && (
+            <Badge>
+              {formatDistance(postedDate, new Date(), {
+                addSuffix: true,
+              })}
+            </Badge>
+          )}
+        </div>
         <button type="button" className="p-1">
           <BookmarkIcon />
         </button>

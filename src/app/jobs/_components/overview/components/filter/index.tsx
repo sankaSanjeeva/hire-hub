@@ -9,7 +9,12 @@ import {
   ExperienceLevelDisplay,
 } from '@/constants/enum-mapping';
 import { LocationIcon } from '../../../../../../../public/icons';
-import { CheckBoxItem, RadioGroupItem, Search } from './components';
+import {
+  CheckBoxItem,
+  RadioGroupItem,
+  SalaryRangeInput,
+  Search,
+} from './components';
 
 export default async function Filter({ className }: { className?: string }) {
   const categories = await prisma.jobCategory.findMany({
@@ -135,6 +140,15 @@ export default async function Filter({ className }: { className?: string }) {
               paramName="range"
               defaultValue="All"
             />
+          </Suspense>
+        </ul>
+      </div>
+
+      <div className="space-y-5">
+        <span className="text-xl font-semibold leading-none">Salary</span>
+        <ul className="space-y-3">
+          <Suspense>
+            <SalaryRangeInput />
           </Suspense>
         </ul>
       </div>
