@@ -77,8 +77,8 @@ export async function GET(request: NextRequest) {
               },
             ]
           : []),
-        ...(salaryMin ? [{ salary: { gt: Number(salaryMin) } }] : []),
-        ...(salaryMax ? [{ salary: { gt: Number(salaryMax) } }] : []),
+        ...(salaryMin ? [{ salary: { gte: Number(salaryMin) } }] : []),
+        ...(salaryMax ? [{ salary: { lte: Number(salaryMax) } }] : []),
       ],
     },
     include: {

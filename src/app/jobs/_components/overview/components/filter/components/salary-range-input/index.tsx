@@ -6,7 +6,7 @@ import { useUpdateSearchParam } from '@/hook';
 import { cn } from '@/lib/utils';
 
 const minLimit = 0;
-const maxLimit = 100000;
+const maxLimit = 1000000;
 
 export default function SalaryRangeInput() {
   const searchParams = useSearchParams();
@@ -69,6 +69,7 @@ export default function SalaryRangeInput() {
           min={minLimit}
           max={maxLimit}
           value={minValue}
+          step={1000}
           onChange={handleMinChange}
           onMouseUp={updateMinValue}
           className={cn(
@@ -83,6 +84,7 @@ export default function SalaryRangeInput() {
           min={minLimit}
           max={maxLimit}
           value={maxValue}
+          step={1000}
           onChange={handleMaxChange}
           onMouseUp={updateMaxValue}
           className={cn(
