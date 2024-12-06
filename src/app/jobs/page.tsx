@@ -1,5 +1,7 @@
 import { Overview, TopCompanies } from './_components';
 
+export const dynamic = 'force-dynamic';
+
 export default function Jobs() {
   return (
     <div>
