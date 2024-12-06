@@ -43,16 +43,34 @@ export default async function Filter({ className }: { className?: string }) {
     { range: string; count: bigint }[]
   >`
     SELECT
-      CASE
-        WHEN "postedDate" >= NOW() - INTERVAL '1 hour' THEN 'Last Hour'
-        WHEN "postedDate" >= NOW() - INTERVAL '24 hours' THEN 'Last 24 Hours'
-        WHEN "postedDate" >= NOW() - INTERVAL '7 days' THEN 'Last 7 Days'
-        WHEN "postedDate" >= NOW() - INTERVAL '30 days' THEN 'Last 30 Days'
-        ELSE 'All'
-      END AS range,
+      ranges.range_name as range,
       COUNT(*) AS count
     FROM "Job"
-    GROUP BY range;
+    CROSS JOIN (
+      VALUES 
+        ('Last Hour'),
+        ('Last 24 Hours'),
+        ('Last 7 Days'),
+        ('Last 30 Days'),
+        ('All')
+    ) AS ranges(range_name)
+    WHERE 
+      CASE 
+        WHEN ranges.range_name = 'Last Hour' THEN "postedDate" >= NOW() - INTERVAL '1 hour'
+        WHEN ranges.range_name = 'Last 24 Hours' THEN "postedDate" >= NOW() - INTERVAL '24 hours'
+        WHEN ranges.range_name = 'Last 7 Days' THEN "postedDate" >= NOW() - INTERVAL '7 days'
+        WHEN ranges.range_name = 'Last 30 Days' THEN "postedDate" >= NOW() - INTERVAL '30 days'
+        WHEN ranges.range_name = 'All' THEN TRUE
+      END
+    GROUP BY ranges.range_name
+    ORDER BY 
+      CASE ranges.range_name
+        WHEN 'Last Hour' THEN 1
+        WHEN 'Last 24 Hours' THEN 2
+        WHEN 'Last 7 Days' THEN 3
+        WHEN 'Last 30 Days' THEN 4
+        ELSE 5
+      END;
   `;
 
   return (
