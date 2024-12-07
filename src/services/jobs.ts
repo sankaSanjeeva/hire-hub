@@ -1,23 +1,22 @@
-import { NextRequest } from 'next/server';
 import { subDays, subHours } from 'date-fns';
 import { EmploymentType, ExperienceLevel, Prisma } from '@prisma/client';
+import { JobFilters, JobWithCompany } from '@/types';
 import { getPaginatedData } from '@/lib/utils';
 import prisma from '@/lib/db';
 
-export async function GET(request: NextRequest) {
-  const searchParams = request.nextUrl.searchParams;
+const limit = 10;
 
-  const page = Number(searchParams.get('page') ?? '1');
-  const limit = Number(searchParams.get('limit') ?? '10');
-  const sortBy = searchParams.get('sortBy');
-  const search = searchParams.get('search') ?? '';
-  const categories = searchParams.get('category')?.split(',');
-  const types = searchParams.get('type')?.split(',');
-  const levels = searchParams.get('level')?.split(',');
-  const range = searchParams.get('range');
-  const salaryMin = searchParams.get('salaryMin');
-  const salaryMax = searchParams.get('salaryMax');
-
+export async function getJobs({
+  page,
+  sortBy,
+  search,
+  category,
+  type,
+  level,
+  range,
+  salaryMin,
+  salaryMax,
+}: JobFilters) {
   const getDateRange = () => {
     switch (range) {
       case 'Last Hour':
@@ -33,6 +32,10 @@ export async function GET(request: NextRequest) {
         return null;
     }
   };
+
+  const categories = category?.split(',');
+  const types = type?.split(',');
+  const levels = level?.split(',');
 
   const query: Prisma.JobFindManyArgs = {
     where: {
@@ -93,7 +96,7 @@ export async function GET(request: NextRequest) {
     orderBy: {
       postedDate: sortBy === 'asc' ? 'asc' : 'desc',
     },
-    skip: (page - 1) * limit,
+    skip: ((page ?? 1) - 1) * limit,
     take: limit,
   };
 
@@ -102,8 +105,8 @@ export async function GET(request: NextRequest) {
     prisma.job.count({ where: query.where }),
   ]);
 
-  return Response.json({
-    data: jobs,
-    pagination: getPaginatedData(page, limit, count),
-  });
+  return {
+    data: jobs as JobWithCompany[],
+    pagination: getPaginatedData(page ?? 1, limit, count),
+  };
 }

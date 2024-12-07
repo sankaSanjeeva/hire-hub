@@ -4,7 +4,7 @@ import { ChangeEvent } from 'react';
 import { useRouter, useSearchParams } from 'next/navigation';
 import { useUpdateSearchParam } from '@/hook';
 import { Input } from '@/components/ui/input';
-import { SearchIcon } from '../../../../../../../../../public/icons';
+import { SearchIcon } from '../../../../../../../public/icons';
 
 export default function Search() {
   const searchParams = useSearchParams();

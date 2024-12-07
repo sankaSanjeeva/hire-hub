@@ -1,3 +1,5 @@
+import { Prisma } from '@prisma/client';
+
 export type PaginatedResult<T> = {
   data: T[];
   pagination: {
@@ -8,3 +10,27 @@ export type PaginatedResult<T> = {
     prev_page: number | null;
   };
 };
+
+export type JobFilters = {
+  page?: number;
+  sortBy?: string;
+  search?: string;
+  category?: string;
+  type?: string;
+  level?: string;
+  range?: string;
+  salaryMin?: string;
+  salaryMax?: string;
+};
+
+export type JobWithCompany = Prisma.JobGetPayload<{
+  include: {
+    company: {
+      include: {
+        location: true;
+      };
+    };
+    category: true;
+    location: true;
+  };
+}>;
