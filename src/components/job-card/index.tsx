@@ -1,6 +1,6 @@
 import Image from 'next/image';
 import { formatDistance } from 'date-fns';
-import { Location, Prisma } from '@prisma/client';
+import { Location } from '@prisma/client';
 import { EmploymentTypeDisplay } from '@/constants/enum-mapping';
 import {
   BookmarkIcon,
@@ -11,18 +11,7 @@ import {
 } from '../../../public/icons';
 import { Badge } from '../ui/badge';
 import { Button } from '../ui/button';
-
-type JobWithCompany = Prisma.JobGetPayload<{
-  include: {
-    company: {
-      include: {
-        location: true;
-      };
-    };
-    category: true;
-    location: true;
-  };
-}>;
+import { JobWithCompany } from '@/types';
 
 const formatAddress = ({ addressLine1, addressLine2, city }: Location) =>
   `${addressLine1 ? addressLine1 : ''}${addressLine2 ? `, ${addressLine2}` : ''}${city ? `, ${city}` : ''}`;

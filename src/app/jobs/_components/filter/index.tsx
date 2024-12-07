@@ -8,7 +8,7 @@ import {
   EmploymentTypeDisplay,
   ExperienceLevelDisplay,
 } from '@/constants/enum-mapping';
-import { LocationIcon } from '../../../../../../../public/icons';
+import { LocationIcon } from '../../../../../public/icons';
 import {
   CheckBoxItem,
   RadioGroupItem,
