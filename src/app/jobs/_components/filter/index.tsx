@@ -3,11 +3,11 @@ import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
 import { Badge } from '@/components/ui/badge';
 import { cn } from '@/lib/utils';
-import prisma from '@/lib/db';
 import {
   EmploymentTypeDisplay,
   ExperienceLevelDisplay,
 } from '@/constants/enum-mapping';
+import { getJobFilters } from '@/data/services/job';
 import { LocationIcon } from '../../../../../public/icons';
 import {
   CheckBoxItem,
@@ -17,61 +17,12 @@ import {
 } from './components';
 
 export default async function Filter({ className }: { className?: string }) {
-  const categories = await prisma.jobCategory.findMany({
-    include: {
-      _count: true,
-    },
-    where: {
-      jobs: {
-        some: {},
-      },
-    },
-    take: 5,
-  });
-
-  const employmentTypeJobs = await prisma.job.groupBy({
-    by: ['employmentType'],
-    _count: true,
-  });
-
-  const experienceLevelJobs = await prisma.job.groupBy({
-    by: ['experienceLevel'],
-    _count: true,
-  });
-
-  const jobsByPostedDate = await prisma.$queryRaw<
-    { range: string; count: bigint }[]
-  >`
-    SELECT
-      ranges.range_name as range,
-      COUNT(*) AS count
-    FROM "Job"
-    CROSS JOIN (
-      VALUES 
-        ('Last Hour'),
-        ('Last 24 Hours'),
-        ('Last 7 Days'),
-        ('Last 30 Days'),
-        ('All')
-    ) AS ranges(range_name)
-    WHERE 
-      CASE 
-        WHEN ranges.range_name = 'Last Hour' THEN "postedDate" >= NOW() - INTERVAL '1 hour'
-        WHEN ranges.range_name = 'Last 24 Hours' THEN "postedDate" >= NOW() - INTERVAL '24 hours'
-        WHEN ranges.range_name = 'Last 7 Days' THEN "postedDate" >= NOW() - INTERVAL '7 days'
-        WHEN ranges.range_name = 'Last 30 Days' THEN "postedDate" >= NOW() - INTERVAL '30 days'
-        WHEN ranges.range_name = 'All' THEN TRUE
-      END
-    GROUP BY ranges.range_name
-    ORDER BY 
-      CASE ranges.range_name
-        WHEN 'Last Hour' THEN 1
-        WHEN 'Last 24 Hours' THEN 2
-        WHEN 'Last 7 Days' THEN 3
-        WHEN 'Last 30 Days' THEN 4
-        ELSE 5
-      END;
-  `;
+  const [
+    categories,
+    employmentTypeJobs,
+    experienceLevelJobs,
+    jobsByPostedDate,
+  ] = await getJobFilters();
 
   return (
     <aside

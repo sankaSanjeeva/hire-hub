@@ -1,5 +1,5 @@
 import { JobCard } from '@/components';
-import { getJobs } from '@/services/jobs';
+import { getJobs } from '@/data/services/job';
 import { Pagination, Sort } from './components';
 import { JobFilters } from '@/types';
 
@@ -21,15 +21,15 @@ export default async function Result({ searchParams }: Props) {
   } = await searchParams;
 
   const data = await getJobs({
-    ...(sortBy ? { sortBy } : {}),
-    ...(page ? { page } : {}),
-    ...(search ? { search } : {}),
-    ...(category ? { category } : {}),
-    ...(type ? { type } : {}),
-    ...(level ? { level } : {}),
-    ...(range ? { range } : {}),
-    ...(salaryMin ? { salaryMin } : {}),
-    ...(salaryMax ? { salaryMax } : {}),
+    sortBy,
+    page,
+    search,
+    category,
+    type,
+    level,
+    range,
+    salaryMin,
+    salaryMax,
   });
 
   return (

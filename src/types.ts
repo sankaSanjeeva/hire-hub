@@ -21,6 +21,7 @@ export type JobFilters = {
   range?: string;
   salaryMin?: string;
   salaryMax?: string;
+  limit?: number;
 };
 
 export type JobWithCompany = Prisma.JobGetPayload<{
