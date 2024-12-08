@@ -1,20 +1,10 @@
 import Image from 'next/image';
 import { CenteredContainer, SectionHeader } from '@/components';
 import { Badge } from '@/components/ui/badge';
-import prisma from '@/lib/db';
+import { getTopCompanies } from '@/data/services/company';
 
 export default async function TopCompanies() {
-  const companies = await prisma.company.findMany({
-    include: {
-      _count: true,
-    },
-    orderBy: {
-      jobs: {
-        _count: 'desc',
-      },
-    },
-    take: 4,
-  });
+  const companies = await getTopCompanies();
 
   return (
     <section className="bg-theme/10">

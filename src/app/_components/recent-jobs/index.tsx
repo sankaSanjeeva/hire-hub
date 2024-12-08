@@ -1,24 +1,10 @@
 import Link from 'next/link';
 import { Button } from '@/components/ui/button';
 import { CenteredContainer, JobCard, SectionHeader } from '@/components';
-import prisma from '@/lib/db';
+import { getJobs } from '@/data/services/job';
 
 export default async function RecentJobs() {
-  const jobs = await prisma.job.findMany({
-    orderBy: {
-      postedDate: 'desc',
-    },
-    include: {
-      company: {
-        include: {
-          location: true,
-        },
-      },
-      category: true,
-      location: true,
-    },
-    take: 5,
-  });
+  const jobs = await getJobs({ limit: 5 });
 
   return (
     <section>
@@ -37,7 +23,7 @@ export default async function RecentJobs() {
         </div>
 
         <div className="mt-14 space-y-6">
-          {jobs.map((job) => (
+          {jobs.data.map((job) => (
             <JobCard key={job.id} {...job} />
           ))}
         </div>

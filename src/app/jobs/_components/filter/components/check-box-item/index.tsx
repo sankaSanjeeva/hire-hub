@@ -29,7 +29,9 @@ export default function CheckBoxItem({ id, name, count, paramName }: Props) {
 
     const params = new URLSearchParams(searchParams);
     params.delete(paramName);
-    params.set(paramName, value.toString());
+    if (value.length > 0) {
+      params.set(paramName, value.toString());
+    }
 
     startTransition(() => {
       setOptimisticValue(value);
