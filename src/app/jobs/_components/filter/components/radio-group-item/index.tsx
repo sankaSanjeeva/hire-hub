@@ -1,33 +1,48 @@
 'use client';
 
+import { useOptimistic, useTransition } from 'react';
 import { useRouter, useSearchParams } from 'next/navigation';
-import { useUpdateSearchParam } from '@/hook';
 import { RadioGroup, RadioGroupItem } from '@/components/ui/radio-group';
 import { Badge } from '@/components/ui/badge';
+
+interface Props {
+  items: { name: string; count: number }[];
+  paramName: string;
+  defaultValue?: string;
+}
 
 export default function RadioGroupItems({
   items,
   paramName,
   defaultValue,
-}: {
-  items: { name: string; count: number }[];
-  paramName: string;
-  defaultValue?: string;
-}) {
+}: Props) {
   const searchParams = useSearchParams();
-  const { replace } = useRouter();
-  const update = useUpdateSearchParam();
+  const router = useRouter();
 
-  const values = searchParams.get(paramName) ?? defaultValue;
+  const [isPending, startTransition] = useTransition();
+  const [optimisticValue, setOptimisticValue] = useOptimistic(
+    searchParams.get(paramName) ?? defaultValue
+  );
 
   const handleCheck = (value: string) => {
-    replace(update(paramName, value), { scroll: false });
+    const params = new URLSearchParams(searchParams);
+    params.delete(paramName);
+    params.set(paramName, value);
+
+    startTransition(() => {
+      setOptimisticValue(value);
+      router.push(`?${params.toString()}`, { scroll: false });
+    });
   };
 
   return (
-    <RadioGroup defaultValue={values} onValueChange={handleCheck}>
+    <RadioGroup defaultValue={optimisticValue} onValueChange={handleCheck}>
       {items.map((item) => (
-        <li className="flex items-center space-x-2" key={item.name}>
+        <li
+          key={item.name}
+          className="flex items-center space-x-2 transition-opacity group-has-[[data-pending]]:pointer-events-none group-has-[[data-pending]]:opacity-65"
+          data-pending={isPending ? '' : undefined}
+        >
           <RadioGroupItem value={item.name} id={`${paramName}-${item.name}`} />
           <div className="flex-grow">
             <label htmlFor={`${paramName}-${item.name}`}>{item.name}</label>

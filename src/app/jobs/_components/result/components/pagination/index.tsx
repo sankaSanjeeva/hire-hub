@@ -1,10 +1,10 @@
 'use client';
 
-import { useRouter } from 'next/navigation';
+import { useOptimistic, useTransition } from 'react';
+import { useRouter, useSearchParams } from 'next/navigation';
 import { Button } from '@/components/ui/button';
-import { useUpdateSearchParam } from '@/hook';
-import { ChevronIcon } from '../../../../../../../public/icons';
 import { JobWithCompany, PaginatedResult } from '@/types';
+import { ChevronIcon } from '../../../../../../../public/icons';
 
 export default function Pagination({
   current_page,
@@ -12,19 +12,31 @@ export default function Pagination({
   next_page,
   total_pages,
 }: PaginatedResult<JobWithCompany>['pagination']) {
-  const { replace } = useRouter();
-  const update = useUpdateSearchParam();
+  const searchParams = useSearchParams();
+  const router = useRouter();
+
+  const [isPending, startTransition] = useTransition();
+  const [optimisticValue, setOptimisticValue] = useOptimistic(
+    Number(current_page ?? 1)
+  );
 
   const handlePage = (newPage: number) => {
-    replace(update('page', `${newPage}`), { scroll: false });
+    const params = new URLSearchParams(searchParams);
+    params.delete('page');
+    params.set('page', `${newPage}`);
+
+    startTransition(() => {
+      setOptimisticValue(newPage);
+      router.push(`?${params.toString()}`, { scroll: false });
+    });
   };
 
   return (
-    <div className="mt-10 flex gap-5">
+    <div className="mt-10 flex gap-5" data-pending={isPending ? '' : undefined}>
       <Button
         variant="outline"
-        onClick={() => handlePage(Number(current_page) - 1)}
-        disabled={!prev_page}
+        onClick={() => handlePage(optimisticValue - 1)}
+        disabled={!prev_page || isPending}
       >
         <ChevronIcon className="!h-6 !w-6 rotate-90 scale-90" />
         <span>Prev</span>
@@ -33,9 +45,10 @@ export default function Pagination({
       <div className="flex flex-grow justify-center gap-6">
         {Array.from({ length: total_pages }, (_, k) => (
           <Button
-            variant={Number(current_page) === k + 1 ? 'default' : 'outline'}
+            variant={optimisticValue === k + 1 ? 'default' : 'outline'}
             key={k}
             onClick={() => handlePage(k + 1)}
+            disabled={isPending}
           >
             {k + 1}
           </Button>
@@ -44,8 +57,8 @@ export default function Pagination({
 
       <Button
         variant="outline"
-        onClick={() => handlePage(Number(current_page) + 1)}
-        disabled={!next_page}
+        onClick={() => handlePage(optimisticValue + 1)}
+        disabled={!next_page || isPending}
       >
         <span>Next</span>
         <ChevronIcon className="!h-6 !w-6 -rotate-90 scale-90" />

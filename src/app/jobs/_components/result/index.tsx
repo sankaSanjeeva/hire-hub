@@ -3,17 +3,23 @@ import { getJobs } from '@/services/jobs';
 import { Pagination, Sort } from './components';
 import { JobFilters } from '@/types';
 
-export default async function Result({
-  page,
-  sortBy,
-  search,
-  category,
-  type,
-  level,
-  range,
-  salaryMin,
-  salaryMax,
-}: JobFilters) {
+interface Props {
+  searchParams: Promise<JobFilters>;
+}
+
+export default async function Result({ searchParams }: Props) {
+  const {
+    sortBy,
+    page,
+    search,
+    category,
+    type,
+    level,
+    range,
+    salaryMin,
+    salaryMax,
+  } = await searchParams;
+
   const data = await getJobs({
     ...(sortBy ? { sortBy } : {}),
     ...(page ? { page } : {}),
@@ -33,10 +39,10 @@ export default async function Result({
           Showing {data?.pagination.current_page}-{data?.pagination.total_pages}{' '}
           of {data?.data.length} results
         </p>
-        <Sort sortBy={sortBy} />
+        <Sort />
       </div>
 
-      <div className="mt-10 space-y-6">
+      <div className="mt-10 space-y-6 group-has-[[data-pending]]:animate-pulse">
         {data?.data.map((job) => <JobCard key={job.id} {...job} />)}
       </div>
 

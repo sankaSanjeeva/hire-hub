@@ -1,8 +1,7 @@
 'use client';
 
-import { useMemo, useState } from 'react';
+import { useMemo, useState, useTransition } from 'react';
 import { useRouter, useSearchParams } from 'next/navigation';
-import { useUpdateSearchParam } from '@/hook';
 import { cn } from '@/lib/utils';
 
 const minLimit = 0;
@@ -10,7 +9,9 @@ const maxLimit = 1000000;
 
 export default function SalaryRangeInput() {
   const searchParams = useSearchParams();
-  const { replace } = useRouter();
+  const router = useRouter();
+
+  const [isPending, startTransition] = useTransition();
 
   const [minValue, setMinValue] = useState(
     Number(searchParams.get('salaryMin') ?? minLimit)
@@ -19,20 +20,28 @@ export default function SalaryRangeInput() {
     Number(searchParams.get('salaryMax') ?? maxLimit)
   );
 
-  const update = useUpdateSearchParam();
-
   const updateMinValue = () => {
-    replace(
-      update('salaryMin', minValue === minLimit ? null : minValue.toString()),
-      { scroll: false }
-    );
+    const params = new URLSearchParams(searchParams);
+    params.delete('salaryMin');
+    if (minValue !== minLimit) {
+      params.set('salaryMin', minValue.toString());
+    }
+
+    startTransition(() => {
+      router.push(`?${params.toString()}`, { scroll: false });
+    });
   };
 
   const updateMaxValue = () => {
-    replace(
-      update('salaryMax', maxValue === maxLimit ? null : maxValue.toString()),
-      { scroll: false }
-    );
+    const params = new URLSearchParams(searchParams);
+    params.delete('salaryMax');
+    if (maxValue !== maxLimit) {
+      params.set('salaryMax', maxValue.toString());
+    }
+
+    startTransition(() => {
+      router.push(`?${params.toString()}`, { scroll: false });
+    });
   };
 
   const handleMinChange = (e: React.ChangeEvent<HTMLInputElement>) => {
@@ -56,7 +65,10 @@ export default function SalaryRangeInput() {
   );
 
   return (
-    <div>
+    <div
+      data-pending={isPending ? '' : undefined}
+      className="transition-opacity group-has-[[data-pending]]:opacity-65"
+    >
       <div className="relative w-full">
         <div className="absolute left-0 right-0 top-1/2 h-1 -translate-y-1/2 transform bg-white" />
         <div
@@ -75,7 +87,8 @@ export default function SalaryRangeInput() {
           className={cn(
             'pointer-events-auto absolute z-10 w-full appearance-none bg-transparent',
             '[&::-webkit-slider-runnable-track]:h-0 [&::-webkit-slider-runnable-track]:appearance-none',
-            '[&::-webkit-slider-thumb]:mt-[-10px] [&::-webkit-slider-thumb]:h-5 [&::-webkit-slider-thumb]:w-5 [&::-webkit-slider-thumb]:appearance-none [&::-webkit-slider-thumb]:rounded-full [&::-webkit-slider-thumb]:bg-theme'
+            '[&::-webkit-slider-thumb]:mt-[-10px] [&::-webkit-slider-thumb]:h-5 [&::-webkit-slider-thumb]:w-5 [&::-webkit-slider-thumb]:appearance-none [&::-webkit-slider-thumb]:rounded-full [&::-webkit-slider-thumb]:bg-theme',
+            'group-has-[[data-pending]]:pointer-events-none'
           )}
         />
 
@@ -90,12 +103,13 @@ export default function SalaryRangeInput() {
           className={cn(
             'pointer-events-auto absolute z-10 w-full appearance-none bg-transparent',
             '[&::-webkit-slider-runnable-track]:h-0 [&::-webkit-slider-runnable-track]:appearance-none',
-            '[&::-webkit-slider-thumb]:mt-[-10px] [&::-webkit-slider-thumb]:h-5 [&::-webkit-slider-thumb]:w-5 [&::-webkit-slider-thumb]:appearance-none [&::-webkit-slider-thumb]:rounded-full [&::-webkit-slider-thumb]:bg-theme'
+            '[&::-webkit-slider-thumb]:mt-[-10px] [&::-webkit-slider-thumb]:h-5 [&::-webkit-slider-thumb]:w-5 [&::-webkit-slider-thumb]:appearance-none [&::-webkit-slider-thumb]:rounded-full [&::-webkit-slider-thumb]:bg-theme',
+            'group-has-[[data-pending]]:pointer-events-none'
           )}
         />
       </div>
 
-      <div className="pt-5">
+      <div className="select-none pt-5">
         Min Rs: {minValue}
         {maxValue !== maxLimit && ` - Max Rs: ${maxValue}`}
       </div>

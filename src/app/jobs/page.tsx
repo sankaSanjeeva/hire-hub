@@ -17,8 +17,6 @@ interface Props {
 }
 
 export default async function Jobs({ searchParams }: Props) {
-  const filters = await searchParams;
-
   return (
     <div>
       <section className="flex h-80 items-center justify-center bg-black">
@@ -26,7 +24,7 @@ export default async function Jobs({ searchParams }: Props) {
       </section>
 
       <section>
-        <CenteredContainer className="grid grid-cols-1 gap-5 pb-28 pt-14 lg:grid-cols-[auto_1fr]">
+        <CenteredContainer className="group grid grid-cols-1 gap-5 pb-28 pt-14 lg:grid-cols-[auto_1fr]">
           <Filter className="hidden lg:block" />
 
           <div>
@@ -43,7 +41,7 @@ export default async function Jobs({ searchParams }: Props) {
               </SheetContent>
             </Sheet>
 
-            <Result {...filters} />
+            <Result searchParams={searchParams} />
           </div>
         </CenteredContainer>
       </section>
