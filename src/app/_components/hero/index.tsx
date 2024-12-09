@@ -1,7 +1,5 @@
-import { Button } from '@/components/ui/button';
 import {
   CandidateIcon,
-  ChevronIcon,
   CompanyIcon,
   LogoAdobeIcon,
   LogoAsanaIcon,
@@ -9,9 +7,9 @@ import {
   LogoLinearIcon,
   LogoSlackIcon,
   LogoSpotifyIcon,
-  SearchIcon,
 } from '../../../../public/icons';
 import { CenteredContainer } from '@/components';
+import { Search } from './components';
 
 export default function Hero() {
   return (
@@ -28,26 +26,7 @@ export default function Hero() {
             </h6>
           </div>
 
-          <div className="flex w-full flex-col overflow-hidden rounded-2xl bg-white sm:w-[500px] lg:w-auto lg:flex-row">
-            <input
-              placeholder="Job Title or Company"
-              className="h-20 w-full border-none px-5 outline-none placeholder:font-medium placeholder:text-black/50 lg:w-52"
-            />
-            <div className="mx-5 h-0.5 shrink-0 bg-[#C7C7C7] lg:mx-0 lg:my-auto lg:h-10 lg:w-0.5" />
-            <button className="inline-flex h-20 w-full items-center justify-between gap-5 px-5 text-black/50 transition-opacity hover:opacity-70 lg:w-52">
-              <span className="font-medium">Select Location</span>
-              <ChevronIcon />
-            </button>
-            <div className="mx-5 h-0.5 shrink-0 bg-[#C7C7C7] lg:mx-0 lg:my-auto lg:h-10 lg:w-0.5" />
-            <button className="inline-flex h-20 w-full items-center justify-between gap-5 px-5 text-black/50 transition-opacity hover:opacity-70 lg:w-52">
-              <span className="font-medium">Select Category</span>
-              <ChevronIcon />
-            </button>
-            <Button className="h-20 rounded-none px-7 text-lg">
-              <SearchIcon />
-              <span>Search Job</span>
-            </Button>
-          </div>
+          <Search />
 
           <div className="flex flex-wrap justify-center gap-x-16 gap-y-5 px-5 pb-10 pt-20 text-white">
             <div className="grid grid-cols-[60px_auto] gap-x-3">

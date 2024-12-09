@@ -10,6 +10,7 @@ export async function getJobs({
   page,
   sortBy,
   search,
+  city,
   category,
   type,
   level,
@@ -45,16 +46,28 @@ export async function getJobs({
           OR: search
             ? [
                 {
-                  title: {
-                    contains: search,
-                    mode: 'insensitive',
+                  title: { contains: search, mode: 'insensitive' },
+                },
+                {
+                  company: {
+                    name: { contains: search, mode: 'insensitive' },
+                  },
+                },
+              ]
+            : [],
+        },
+        {
+          OR: city
+            ? [
+                {
+                  location: {
+                    city: { contains: city, mode: 'insensitive' },
                   },
                 },
                 {
                   company: {
-                    name: {
-                      contains: search,
-                      mode: 'insensitive',
+                    location: {
+                      city: { contains: city, mode: 'insensitive' },
                     },
                   },
                 },
