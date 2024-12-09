@@ -1,6 +1,5 @@
 import { Suspense } from 'react';
 import { Button } from '@/components/ui/button';
-import { Input } from '@/components/ui/input';
 import { Badge } from '@/components/ui/badge';
 import { cn } from '@/lib/utils';
 import {
@@ -8,9 +7,9 @@ import {
   ExperienceLevelDisplay,
 } from '@/constants/enum-mapping';
 import { getJobFilters } from '@/data/services/job';
-import { LocationIcon } from '../../../../../public/icons';
 import {
   CheckBoxItem,
+  LocationSelect,
   RadioGroupItem,
   SalaryRangeInput,
   Search,
@@ -37,13 +36,7 @@ export default async function Filter({ className }: { className?: string }) {
 
       <div className="space-y-5">
         <span className="text-xl font-semibold leading-none">Location</span>
-        <div className="relative">
-          <LocationIcon className="absolute left-3 top-1/2 h-5 w-5 -translate-y-1/2 text-gray-500" />
-          <Input
-            className="rounded-xl pl-10"
-            placeholder="Job title or company"
-          />
-        </div>
+        <LocationSelect />
       </div>
 
       <div className="space-y-5">

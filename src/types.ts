@@ -15,6 +15,7 @@ export type JobFilters = {
   page?: number;
   sortBy?: string;
   search?: string;
+  city?: string;
   category?: string;
   type?: string;
   level?: string;
