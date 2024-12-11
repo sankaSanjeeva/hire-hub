@@ -1,0 +1,11 @@
+export { ReactComponent as AlignCenterIcon } from './align-center.svg';
+export { ReactComponent as AlignJustifyIcon } from './align-justify.svg';
+export { ReactComponent as AlignLeftIcon } from './align-left.svg';
+export { ReactComponent as AlignRightIcon } from './align-right.svg';
+export { ReactComponent as BoldIcon } from './bold.svg';
+export { ReactComponent as BulletListIcon } from './bullet-list.svg';
+export { ReactComponent as ItalicIcon } from './italic.svg';
+export { ReactComponent as LinkIcon } from './link.svg';
+export { ReactComponent as NumberListIcon } from './number-list.svg';
+export { ReactComponent as StrikethroughIcon } from './strikethrough.svg';
+export { ReactComponent as UnderlineIcon } from './underline.svg';
