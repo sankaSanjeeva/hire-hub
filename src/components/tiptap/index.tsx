@@ -1,7 +1,7 @@
 'use client';
 
 import { useCallback, useState } from 'react';
-import { useEditor, EditorContent } from '@tiptap/react';
+import { useEditor, EditorContent, UseEditorOptions } from '@tiptap/react';
 import StarterKit from '@tiptap/starter-kit';
 import Underline from '@tiptap/extension-underline';
 import TextAlign from '@tiptap/extension-text-align';
@@ -40,12 +40,12 @@ import {
 import { Input } from '../ui/input';
 import { Button } from '../ui/button';
 
-interface TiptapProps {
-  content?: string;
-  onChange?: (content: string) => void;
-}
+type TiptapProps = Omit<
+  UseEditorOptions,
+  'editorProps' | 'extensions' | 'immediatelyRender'
+> & {};
 
-export default function Tiptap({ content = '', onChange }: TiptapProps) {
+export default function Tiptap(props: TiptapProps) {
   const [link, setLink] = useState('');
 
   const editor = useEditor({
@@ -60,12 +60,8 @@ export default function Tiptap({ content = '', onChange }: TiptapProps) {
       TextAlign.configure({ types: ['heading', 'paragraph'] }),
       Link.configure({ openOnClick: false }),
     ],
-    content,
     immediatelyRender: false,
-    onUpdate: ({ editor }) => {
-      console.log(editor.getHTML());
-      onChange?.(editor.getHTML());
-    },
+    ...props,
   });
 
   const handleHeading = useCallback(
