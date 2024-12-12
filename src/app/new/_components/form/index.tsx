@@ -31,7 +31,7 @@ const employmentTypes = Object.values(EmploymentType);
 const experienceLevels = Object.values(ExperienceLevel);
 
 const initialDescription =
-  '<h2>Job Description</h2><p>This is a sample job description. Update this to match the job you are posting.</p><p></p><h2>Key Responsibilities</h2><ul><li><p>Responsibility 1</p></li><li><p>Responsibility 1</p></li></ul><p></p><h2>Professional Skills</h2><ul><li><p>Skills 1</p></li><li><p>Skills 2</p></li></ul>';
+  '<h2>Job Description</h2><p>This is a sample job description. Update this to match the job you are posting.</p><p></p><h2>Key Responsibilities</h2><ul><li><p>Responsibility 1</p></li><li><p>Responsibility 2</p></li></ul><p></p><h2>Professional Skills</h2><ul><li><p>Skills 1</p></li><li><p>Skills 2</p></li></ul>';
 
 export default function CreateJobForm({
   categories,
@@ -159,7 +159,8 @@ export default function CreateJobForm({
       <Tiptap
         content={initialDescription}
         onUpdate={({ editor }) => {
-          setDescription(editor.getHTML());
+          const html = editor.getHTML().replace(/<p><\/p>/g, '<br>');
+          setDescription(html);
         }}
       />
 

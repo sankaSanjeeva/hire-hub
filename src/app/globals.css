@@ -2,7 +2,8 @@
 @tailwind components;
 @tailwind utilities;
 
-.tiptap {
+.tiptap,
+.job-post-preview {
   h1 {
     font-size: 2.25rem;
   }

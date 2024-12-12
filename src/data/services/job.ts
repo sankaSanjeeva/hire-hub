@@ -127,6 +127,23 @@ export async function getJobs({
   };
 }
 
+export async function getJob(id: string) {
+  const job = await prisma.job.findUnique({
+    where: { id },
+    include: {
+      company: {
+        include: {
+          location: true,
+        },
+      },
+      category: true,
+      location: true,
+    },
+  });
+
+  return job;
+}
+
 export async function getJobFilters() {
   const getCategories = prisma.jobCategory.findMany({
     include: {

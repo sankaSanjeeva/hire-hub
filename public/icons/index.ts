@@ -19,4 +19,5 @@ export { ReactComponent as QuotesIcon } from './quotes.svg';
 export { ReactComponent as SearchIcon } from './search.svg';
 export { ReactComponent as SpinnerIcon } from './spinner.svg';
 export { ReactComponent as StartIcon } from './star.svg';
+export { ReactComponent as UserIcon } from './user.svg';
 export { ReactComponent as WalletIcon } from './wallet.svg';

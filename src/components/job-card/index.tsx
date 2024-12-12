@@ -1,7 +1,9 @@
+import Link from 'next/link';
 import Image from 'next/image';
 import { formatDistance } from 'date-fns';
-import { Location } from '@prisma/client';
 import { EmploymentTypeDisplay } from '@/constants/enum-mapping';
+import { JobWithCompany } from '@/types';
+import { cn, formatAddress } from '@/lib/utils';
 import {
   BookmarkIcon,
   BriefcaseIcon,
@@ -11,12 +13,14 @@ import {
 } from '../../../public/icons';
 import { Badge } from '../ui/badge';
 import { Button } from '../ui/button';
-import { JobWithCompany } from '@/types';
 
-const formatAddress = ({ addressLine1, addressLine2, city }: Location) =>
-  `${addressLine1 ? addressLine1 : ''}${addressLine2 ? `, ${addressLine2}` : ''}${city ? `, ${city}` : ''}`;
+interface Props extends JobWithCompany {
+  action?: 'view' | 'apply';
+  className?: string;
+}
 
 export default function JobCard({
+  id,
   title,
   company,
   category,
@@ -24,11 +28,13 @@ export default function JobCard({
   salary,
   location,
   postedDate,
-}: JobWithCompany) {
+  action = 'view',
+  className,
+}: Props) {
   const jobLocation = location ?? company.location;
 
   return (
-    <div className="rounded-2xl p-5 shadow-card lg:p-10">
+    <div className={cn('rounded-2xl p-5 shadow-card lg:p-10', className)}>
       <div className="flex justify-between">
         <div>
           {postedDate && (
@@ -86,9 +92,18 @@ export default function JobCard({
             </div>
           )}
         </div>
-        <Button size="sm" className="w-full sm:w-auto">
-          Job Details
-        </Button>
+        {action === 'view' && (
+          <Link href={`/jobs/${id}`}>
+            <Button size="sm" className="w-full sm:w-auto">
+              Job Details
+            </Button>
+          </Link>
+        )}
+        {action === 'apply' && (
+          <Link href={`/jobs/${id}/apply`}>
+            <Button className="w-full sm:w-auto lg:w-80">Apply Job</Button>
+          </Link>
+        )}
       </div>
     </div>
   );
