@@ -41,6 +41,7 @@ export async function createJob(_prevState: State, formData: FormData) {
           id: data.categoryId,
         },
       },
+      postedDate: new Date(),
     },
   });
 

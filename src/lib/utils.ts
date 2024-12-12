@@ -1,4 +1,5 @@
 import { PaginatedResult } from '@/types';
+import { Location } from '@prisma/client';
 import { clsx, type ClassValue } from 'clsx';
 import { twMerge } from 'tailwind-merge';
 
@@ -19,3 +20,6 @@ export function getPaginatedData(
     prev_page: page > 0 ? page - 1 : null,
   };
 }
+
+export const formatAddress = ({ addressLine1, addressLine2, city }: Location) =>
+  `${addressLine1 ? addressLine1 : ''}${addressLine2 ? `, ${addressLine2}` : ''}${city ? `, ${city}` : ''}`;
