@@ -17,7 +17,29 @@ const config: Config = {
         '3xl': '20px',
       },
       boxShadow: {
-        card: '0 4px 8px 0 #30968914', // theme * 0.08
+        card: '0 4px 8px 0 #30968914',
+      },
+      keyframes: {
+        'accordion-down': {
+          from: {
+            height: '0',
+          },
+          to: {
+            height: 'var(--radix-accordion-content-height)',
+          },
+        },
+        'accordion-up': {
+          from: {
+            height: 'var(--radix-accordion-content-height)',
+          },
+          to: {
+            height: '0',
+          },
+        },
+      },
+      animation: {
+        'accordion-down': 'accordion-down 0.2s ease-out',
+        'accordion-up': 'accordion-up 0.2s ease-out',
       },
     },
   },
