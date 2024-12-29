@@ -30,7 +30,7 @@ export default async function JobDetails({ params }: Props) {
         <section className="group grid grid-cols-1 gap-5 lg:grid-cols-[1fr_auto]">
           <div>
             <div
-              className="job-post-preview"
+              className="job-post-preview lg:min-h-[544px]"
               dangerouslySetInnerHTML={{ __html: job?.description ?? '' }}
             />
 
