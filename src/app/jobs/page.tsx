@@ -1,5 +1,13 @@
-import { CenteredContainer } from '@/components';
-import { Filter, Result, TopCompanies } from './_components';
+import { Suspense } from 'react';
+import { CenteredContainer, SectionHeader } from '@/components';
+import {
+  Filter,
+  FilterSkeleton,
+  Result,
+  ResultSkeleton,
+  TopCompanies,
+  TopCompaniesSkeleton,
+} from './_components';
 import {
   Sheet,
   SheetContent,
@@ -25,7 +33,9 @@ export default async function Jobs({ searchParams }: Props) {
 
       <section>
         <CenteredContainer className="group grid grid-cols-1 gap-5 pb-28 pt-14 lg:grid-cols-[auto_1fr]">
-          <Filter className="hidden lg:block" />
+          <Suspense fallback={<FilterSkeleton className="hidden lg:block" />}>
+            <Filter className="hidden lg:block" />
+          </Suspense>
 
           <div>
             <Sheet>
@@ -37,16 +47,32 @@ export default async function Jobs({ searchParams }: Props) {
               </SheetTrigger>
               <SheetContent side="left" className="w-auto overflow-auto">
                 <SheetTitle />
-                <Filter />
+                <Suspense fallback={<FilterSkeleton />}>
+                  <Filter />
+                </Suspense>
               </SheetContent>
             </Sheet>
 
-            <Result searchParams={searchParams} />
+            <Suspense fallback={<ResultSkeleton />}>
+              <Result searchParams={searchParams} />
+            </Suspense>
           </div>
         </CenteredContainer>
       </section>
 
-      <TopCompanies />
+      <section className="bg-theme/10">
+        <CenteredContainer className="pb-28 pt-14">
+          <SectionHeader
+            main="Top Company"
+            sub="Lorem ipsum dolor, sit amet consectetur adipisicing elit."
+            className="text-center"
+          />
+
+          <Suspense fallback={<TopCompaniesSkeleton />}>
+            <TopCompanies />
+          </Suspense>
+        </CenteredContainer>
+      </section>
     </div>
   );
 }

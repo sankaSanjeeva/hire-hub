@@ -92,18 +92,16 @@ export default async function Filter({ className }: { className?: string }) {
 
       <div className="space-y-5">
         <span className="text-xl font-semibold leading-none">Date Posted</span>
-        <ul className="space-y-3">
-          <Suspense>
-            <RadioGroupItem
-              items={jobsByPostedDate.map(({ range, count }) => ({
-                name: range,
-                count: Number(count),
-              }))}
-              paramName="range"
-              defaultValue="All"
-            />
-          </Suspense>
-        </ul>
+        <Suspense>
+          <RadioGroupItem
+            items={jobsByPostedDate.map(({ range, count }) => ({
+              name: range,
+              count: Number(count),
+            }))}
+            paramName="range"
+            defaultValue="All"
+          />
+        </Suspense>
       </div>
 
       <div className="space-y-5">
