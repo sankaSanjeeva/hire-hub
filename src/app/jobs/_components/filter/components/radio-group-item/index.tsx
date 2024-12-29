@@ -36,9 +36,13 @@ export default function RadioGroupItems({
   };
 
   return (
-    <RadioGroup defaultValue={optimisticValue} onValueChange={handleCheck}>
+    <RadioGroup
+      defaultValue={optimisticValue}
+      onValueChange={handleCheck}
+      className="gap-3"
+    >
       {items.map((item) => (
-        <li
+        <div
           key={item.name}
           className="flex items-center space-x-2 transition-opacity group-has-[[data-pending]]:pointer-events-none group-has-[[data-pending]]:opacity-65"
           data-pending={isPending ? '' : undefined}
@@ -48,7 +52,7 @@ export default function RadioGroupItems({
             <label htmlFor={`${paramName}-${item.name}`}>{item.name}</label>
           </div>
           <Badge variant="quantity">{item.count}</Badge>
-        </li>
+        </div>
       ))}
     </RadioGroup>
   );
