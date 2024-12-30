@@ -30,7 +30,7 @@ function JobOverviewItem({
     <div className="grid grid-cols-[auto_1fr] gap-x-5 gap-y-1">
       <div className="row-span-2">{icon}</div>
       <span className="font-semibold leading-none">{title}</span>
-      <span className="leading-none text-gray-500">{value}</span>
+      <span className="min-h-4 leading-none text-gray-500">{value}</span>
     </div>
   );
 }
