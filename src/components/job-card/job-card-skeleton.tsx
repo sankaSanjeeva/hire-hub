@@ -1,7 +1,12 @@
 import { cn } from '@/lib/utils';
 import { Skeleton } from '../ui/skeleton';
 
-export default function JobCardSkeleton({ className }: { className?: string }) {
+interface Props {
+  action?: 'view' | 'apply';
+  className?: string;
+}
+
+export default function JobCardSkeleton({ action = 'view', className }: Props) {
   return (
     <div className={cn('rounded-2xl p-5 shadow-card lg:p-10', className)}>
       <div className="flex justify-between">
@@ -31,10 +36,15 @@ export default function JobCardSkeleton({ className }: { className?: string }) {
           </div>
           <div className="flex items-center gap-3">
             <Skeleton className="h-6 w-6 rounded-lg" />
-            <Skeleton className="h-4 w-60 rounded-lg" />
+            <Skeleton className="h-4 w-56 rounded-lg" />
           </div>
         </div>
-        <Skeleton className="h-9 w-[104px] rounded" />
+        <Skeleton
+          className={cn(
+            'h-9 w-[104px] shrink-0 rounded',
+            action === 'apply' && 'h-10 rounded-lg lg:w-80'
+          )}
+        />
       </div>
     </div>
   );
