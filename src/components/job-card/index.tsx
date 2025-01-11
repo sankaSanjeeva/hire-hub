@@ -61,7 +61,7 @@ export default function JobCard({
             blurDataURL="/icons/image-not-found.svg"
           />
         </div>
-        <h3 className="text-3xl font-semibold leading-none">{title}</h3>
+        <h2 className="text-3xl font-semibold leading-none">{title}</h2>
         <span className="leading-none">{company.name}</span>
       </div>
 

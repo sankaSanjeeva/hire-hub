@@ -38,7 +38,7 @@ function JobOverviewItem({
 export default function JobOverview({ job }: Props) {
   return (
     <div className="space-y-7 rounded-3xl bg-theme/10 px-5 py-10">
-      <h3 className="text-lg font-bold">Job Overview</h3>
+      <h3>Job Overview</h3>
 
       <JobOverviewItem
         title="Job Title"

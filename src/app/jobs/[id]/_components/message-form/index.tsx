@@ -8,7 +8,7 @@ import { UserIcon } from '../../../../../../public/icons';
 export default function MessageForm() {
   return (
     <Form action="" className="space-y-6 rounded-3xl bg-theme/10 px-5 py-10">
-      <h3 className="text-lg font-bold">Send Us Message</h3>
+      <h3>Send Us Message</h3>
 
       <div className="relative">
         <UserIcon className="absolute left-3 top-1/2 -translate-y-1/2 text-gray-500" />

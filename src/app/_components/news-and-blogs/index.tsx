@@ -54,9 +54,9 @@ export default function NewsAndBlogs() {
 
               <div className="mt-5">
                 <span className="text-black/80">{item.date}</span>
-                <h4 className="mb-2 mt-2 line-clamp-2 text-2xl font-semibold">
+                <h2 className="mb-2 mt-2 line-clamp-2 font-semibold">
                   {item.title}
-                </h4>
+                </h2>
                 <Button variant="link" className="p-0">
                   <span>Read more</span>
                   <ArrowIcon className="!h-5 !w-5" />

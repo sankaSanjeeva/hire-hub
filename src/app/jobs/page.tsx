@@ -28,7 +28,7 @@ export default async function Jobs({ searchParams }: Props) {
   return (
     <div>
       <section className="flex h-80 items-center justify-center bg-black">
-        <h1 className="text-6xl font-bold text-white">Jobs</h1>
+        <h1 className="text-6xl text-white">Jobs</h1>
       </section>
 
       <section>

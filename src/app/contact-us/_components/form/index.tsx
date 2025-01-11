@@ -17,7 +17,7 @@ export default function Form() {
       className="h-fit w-full space-y-10 rounded-3xl bg-theme/10 px-10 py-16 lg:w-2/5"
     >
       <div className="text-center">
-        <h3 className="text-[28px] font-bold">Contact Info</h3>
+        <h2 className="text-[28px]">Contact Info</h2>
         <p>Lorem ipsum dolor sit amet consectetur adipisicing elit.</p>
       </div>
 

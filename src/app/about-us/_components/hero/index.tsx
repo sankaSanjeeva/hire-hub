@@ -4,7 +4,7 @@ export default function Hero() {
   return (
     <section>
       <div className="flex flex-col gap-10 lg:flex-row">
-        <h1 className="flex-1 text-4xl font-semibold">
+        <h1 className="flex-1 font-semibold">
           Lorem ipsum dolor sit amet consectetur adipisicing elit.
         </h1>
         <p className="flex-1">

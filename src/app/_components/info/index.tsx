@@ -21,24 +21,24 @@ export default function Info() {
 
         <div className="mt-20 grid gap-x-10 gap-y-10 text-center sm:grid-cols-3 sm:text-left lg:gap-x-20">
           <div className="space-y-5">
-            <h2 className="text-5xl font-bold text-theme">12k+</h2>
-            <h4 className="text-2xl font-semibold">Clients worldwide</h4>
+            <span className="text-5xl font-bold text-theme">12k+</span>
+            <h2 className="font-semibold">Clients worldwide</h2>
             <p className="text-black/80">
               Lorem ipsum dolor sit amet consectetur adipisicing elit.
               Laudantium id impedit voluptatem
             </p>
           </div>
           <div className="space-y-5">
-            <h2 className="text-5xl font-bold text-theme">20k+</h2>
-            <h4 className="text-2xl font-semibold">Active resume</h4>
+            <span className="text-5xl font-bold text-theme">20k+</span>
+            <h2 className="font-semibold">Active resume</h2>
             <p className="text-black/80">
               Lorem ipsum dolor sit amet consectetur adipisicing elit.
               Laudantium id impedit voluptatem
             </p>
           </div>
           <div className="space-y-5">
-            <h2 className="text-5xl font-bold text-theme">18k+</h2>
-            <h4 className="text-2xl font-semibold">Companies</h4>
+            <span className="text-5xl font-bold text-theme">18k+</span>
+            <h2 className="font-semibold">Companies</h2>
             <p className="text-black/80">
               Lorem ipsum dolor sit amet consectetur adipisicing elit.
               Laudantium id impedit voluptatem

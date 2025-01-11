@@ -12,7 +12,7 @@ export default function Footer() {
           <div className="flex flex-col items-center gap-5 lg:items-start">
             <div className="inline-flex items-center gap-2">
               <LogoIcon />
-              <h3 className="text-xl font-semibold">Hire Hub</h3>
+              <h3 className="font-semibold">Hire Hub</h3>
             </div>
             <p className="text-center leading-8 lg:text-start">
               Quis enim pellentesque viverra tellus eget malesuada facilisis.
@@ -21,7 +21,7 @@ export default function Footer() {
           </div>
 
           <div className="flex flex-col items-center gap-5 lg:items-start">
-            <h3 className="text-xl font-semibold">Company</h3>
+            <h3 className="font-semibold">Company</h3>
             <ul className="flex flex-col items-center leading-8 lg:items-start">
               <li>About Us</li>
               <li>Our Team</li>
@@ -32,7 +32,7 @@ export default function Footer() {
           </div>
 
           <div className="flex flex-col items-center gap-5 lg:items-start">
-            <h3 className="text-xl font-semibold">Job Categories</h3>
+            <h3 className="font-semibold">Job Categories</h3>
             <ul className="flex flex-col items-center leading-8 lg:items-start">
               <li>Telecommunications</li>
               <li>Hotels & Tourism</li>
@@ -43,7 +43,7 @@ export default function Footer() {
           </div>
 
           <div className="flex flex-col items-center gap-5 lg:items-start">
-            <h3 className="text-xl font-semibold">Newsletter</h3>
+            <h3 className="font-semibold">Newsletter</h3>
             <form className="space-y-4">
               <p className="pt-2 text-center text-sm text-white/80 lg:text-start">
                 Eu nunc pretium vitae platea. Non netus elementum vulputate

@@ -10,7 +10,7 @@ export default function Loading() {
   return (
     <div>
       <div className="flex h-80 items-center justify-center bg-black">
-        <h1 className="text-6xl font-bold text-white">Job Details</h1>
+        <h1 className="text-6xl text-white">Job Details</h1>
       </div>
 
       <CenteredContainer className="pb-28 pt-14">
