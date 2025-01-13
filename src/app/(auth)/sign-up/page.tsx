@@ -1,3 +1,4 @@
+import { Suspense } from 'react';
 import Image from 'next/image';
 import Link from 'next/link';
 import { SignUpForm } from './_components';
@@ -27,14 +28,18 @@ export default function SignUp() {
         </div>
 
         <div className="mt-8">
-          <SignUpForm />
+          <Suspense>
+            <SignUpForm />
+          </Suspense>
         </div>
 
         <div className="mt-4 text-center text-sm">
           <p>
             Already have an account?{' '}
             <span className="text-theme">
-              <RedirectLink path="/login">Login</RedirectLink>
+              <Suspense>
+                <RedirectLink path="/login">Login</RedirectLink>
+              </Suspense>
             </span>
           </p>
           <p>
