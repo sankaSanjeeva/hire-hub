@@ -2,12 +2,13 @@ import type { Metadata } from 'next';
 import Link from 'next/link';
 import { Figtree } from 'next/font/google';
 import { Footer, Header } from '@/components';
-import './globals.css';
+import AuthButtons from '@/components/header/components/auth-buttons';
 import {
   HoverCard,
   HoverCardContent,
   HoverCardTrigger,
 } from '@/components/ui/hover-card';
+import './globals.css';
 
 const figtree = Figtree({
   subsets: ['latin'],
@@ -27,7 +28,9 @@ export default function RootLayout({
   return (
     <html lang="en">
       <body className={figtree.className}>
-        <Header />
+        <Header>
+          <AuthButtons />
+        </Header>
 
         <main>{children}</main>
 
