@@ -1,6 +1,7 @@
 'use client';
 
-import React from 'react';
+import { Children, cloneElement, ReactElement } from 'react';
+import { usePathname } from 'next/navigation';
 import { cn } from '@/lib/utils';
 import { HamburgerIcon, LogoIcon } from '../../../public/icons';
 import CenteredContainer from '../centered-container';
@@ -12,9 +13,11 @@ import {
   SheetTitle,
   SheetTrigger,
 } from '../ui/sheet';
-import { AuthButtons, NavItems } from './components';
+import { NavItems } from './components';
 
-export default function Header() {
+export default function Header({ children }: { children: ReactElement }) {
+  const pathname = usePathname();
+
   const { ref, visible } = useElementIsVisible({ initialVisible: true });
 
   return (
@@ -24,6 +27,7 @@ export default function Header() {
       <header
         className={cn(
           'supports-backdrop-blur:bg-slate/60 fixed top-0 z-50 w-screen flex-none py-5 text-white backdrop-blur transition-all duration-500',
+          pathname !== '/' && 'bg-black',
           !visible && 'bg-black/70 py-2'
         )}
       >
@@ -35,7 +39,11 @@ export default function Header() {
 
           <NavItems className="hidden lg:flex" />
 
-          <AuthButtons className="hidden lg:flex" />
+          {Children.map(children, (child) =>
+            cloneElement(child, {
+              className: 'hidden lg:flex',
+            })
+          )}
 
           <div className="block lg:hidden">
             <Sheet>
@@ -52,7 +60,11 @@ export default function Header() {
 
                 <NavItems className="flex flex-grow lg:hidden [&>ul]:flex-col" />
 
-                <AuthButtons className="flex justify-center lg:hidden" />
+                {Children.map(children, (child) =>
+                  cloneElement(child, {
+                    className: 'flex justify-center lg:hidden',
+                  })
+                )}
               </SheetContent>
             </Sheet>
           </div>

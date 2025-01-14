@@ -15,7 +15,7 @@ function DetailsCard({
   return (
     <div className="flex flex-col gap-4">
       <div>{icon}</div>
-      <h3 className="text-2xl font-bold">{title}</h3>
+      <h2>{title}</h2>
       <p className="text-xl font-medium">{value}</p>
     </div>
   );

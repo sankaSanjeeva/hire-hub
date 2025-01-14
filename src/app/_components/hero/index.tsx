@@ -17,13 +17,13 @@ export default function Hero() {
       <div className="flex flex-grow bg-[linear-gradient(rgba(0,0,0,0.7),rgba(0,0,0,0.7)),url('/images/hero.png')] bg-cover bg-fixed bg-center bg-no-repeat pt-20">
         <CenteredContainer className="flex flex-col items-center justify-center">
           <div className="py-10">
-            <h1 className="text-center text-4xl font-bold text-white md:text-6xl lg:text-7xl">
+            <h1 className="text-center text-white md:text-6xl lg:text-7xl">
               Find Your Dream Job Today!
             </h1>
 
-            <h6 className="mt-3 text-center text-white/80 md:text-lg">
+            <p className="mt-3 text-center text-white/80 md:text-lg">
               Connecting Talent with Opportunity: Your Gateway to Career Success
-            </h6>
+            </p>
           </div>
 
           <Search />

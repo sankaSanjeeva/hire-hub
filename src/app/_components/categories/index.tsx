@@ -17,9 +17,9 @@ export default async function Categories() {
               height={40}
               alt={category.name}
             />
-            <h3 className="line-clamp-2 w-[188px] text-center text-2xl font-bold">
+            <h2 className="line-clamp-2 w-[188px] text-center">
               {category.name}
-            </h3>
+            </h2>
             <Badge>{category._count.jobs} jobs</Badge>
           </div>
         </Link>

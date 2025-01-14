@@ -2,16 +2,24 @@
 @tailwind components;
 @tailwind utilities;
 
+h1 {
+  @apply text-4xl font-bold;
+}
+
+h2 {
+  @apply text-2xl font-bold;
+}
+
+h3 {
+  @apply text-xl font-bold;
+}
+
+h4 {
+  @apply text-base font-bold;
+}
+
 .tiptap,
 .job-post-preview {
-  h1 {
-    font-size: 2.25rem;
-  }
-
-  h2 {
-    font-size: 1.5rem;
-  }
-
   a {
     color: #0070f3;
   }

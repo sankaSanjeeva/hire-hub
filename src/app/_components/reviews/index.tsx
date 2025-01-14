@@ -48,7 +48,7 @@ export default function Reviews() {
                     <StartIcon key={x} />
                   ))}
                 </div>
-                <h2 className="text-2xl font-semibold">{review.title}</h2>
+                <h2 className="font-semibold">{review.title}</h2>
                 <p className="line-clamp-4 italic">{review.message}</p>
               </div>
 
