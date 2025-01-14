@@ -1,21 +1,24 @@
+import { useActionState } from 'react';
 import Link from 'next/link';
 import { Button } from '@/components/ui/button';
 import { cn } from '@/lib/utils';
-import { readSession } from '@/lib/auth';
+import { logout } from '@/data/actions/auth';
 
-export default async function AuthButtons({
+export default function AuthButtons({
+  isAuth,
   className,
 }: {
+  isAuth: boolean;
   className?: string;
 }) {
-  const session = await readSession();
+  const [loggedIn, action] = useActionState(logout, isAuth);
 
   return (
     <div className={cn('gap-1', className)}>
-      {!!session?.userId ? (
-        <Link href="/logout">
+      {loggedIn ? (
+        <form action={action}>
           <Button className="w-24 text-white">Log out</Button>
-        </Link>
+        </form>
       ) : (
         <>
           <Link href="/login">
