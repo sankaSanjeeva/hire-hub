@@ -9,7 +9,7 @@ export type SessionPayload = {
   expiresAt: Date;
 };
 
-const secretKey = process.env.SECRET;
+const secretKey = process.env.SESSION_SECRET;
 const key = new TextEncoder().encode(secretKey);
 
 export async function encrypt(payload: SessionPayload) {
@@ -73,4 +73,5 @@ export async function updateSession() {
 
 export async function deleteSession() {
   (await cookies()).delete('session');
+  redirect('/login');
 }

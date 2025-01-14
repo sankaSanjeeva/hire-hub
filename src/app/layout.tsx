@@ -2,12 +2,12 @@ import type { Metadata } from 'next';
 import Link from 'next/link';
 import { Figtree } from 'next/font/google';
 import { Footer, Header } from '@/components';
-import AuthButtons from '@/components/header/components/auth-buttons';
 import {
   HoverCard,
   HoverCardContent,
   HoverCardTrigger,
 } from '@/components/ui/hover-card';
+import { readSession } from '@/lib/auth';
 import './globals.css';
 
 const figtree = Figtree({
@@ -20,17 +20,17 @@ export const metadata: Metadata = {
   description: 'Find Your Dream Job Today',
 };
 
-export default function RootLayout({
+export default async function RootLayout({
   children,
 }: Readonly<{
   children: React.ReactNode;
 }>) {
+  const session = await readSession();
+
   return (
     <html lang="en">
       <body className={figtree.className}>
-        <Header>
-          <AuthButtons />
-        </Header>
+        <Header isAuth={!!session?.userId} />
 
         <main>{children}</main>
 

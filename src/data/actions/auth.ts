@@ -1,7 +1,7 @@
 'use server';
 
 import bcrypt from 'bcrypt';
-import { createSession } from '@/lib/auth';
+import { createSession, deleteSession } from '@/lib/auth';
 import { loginSchema, LoginSchemaType, LoginState } from '@/validations/login';
 import {
   signUpSchema,
@@ -101,4 +101,10 @@ export async function login(
   }
 
   await createSession(user.id, redirectUrl);
+}
+
+export async function logout() {
+  await deleteSession();
+
+  return false;
 }

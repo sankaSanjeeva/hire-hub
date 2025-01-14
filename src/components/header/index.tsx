@@ -1,6 +1,5 @@
 'use client';
 
-import { Children, cloneElement, ReactElement } from 'react';
 import { usePathname } from 'next/navigation';
 import { cn } from '@/lib/utils';
 import { HamburgerIcon, LogoIcon } from '../../../public/icons';
@@ -13,9 +12,9 @@ import {
   SheetTitle,
   SheetTrigger,
 } from '../ui/sheet';
-import { NavItems } from './components';
+import { AuthButtons, NavItems } from './components';
 
-export default function Header({ children }: { children: ReactElement }) {
+export default function Header({ isAuth }: { isAuth: boolean }) {
   const pathname = usePathname();
 
   const { ref, visible } = useElementIsVisible({ initialVisible: true });
@@ -39,11 +38,7 @@ export default function Header({ children }: { children: ReactElement }) {
 
           <NavItems className="hidden lg:flex" />
 
-          {Children.map(children, (child) =>
-            cloneElement(child, {
-              className: 'hidden lg:flex',
-            })
-          )}
+          <AuthButtons className="hidden lg:flex" isAuth={isAuth} />
 
           <div className="block lg:hidden">
             <Sheet>
@@ -60,11 +55,10 @@ export default function Header({ children }: { children: ReactElement }) {
 
                 <NavItems className="flex flex-grow lg:hidden [&>ul]:flex-col" />
 
-                {Children.map(children, (child) =>
-                  cloneElement(child, {
-                    className: 'flex justify-center lg:hidden',
-                  })
-                )}
+                <AuthButtons
+                  className="flex justify-center lg:hidden"
+                  isAuth={isAuth}
+                />
               </SheetContent>
             </Sheet>
           </div>
