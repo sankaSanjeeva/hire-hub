@@ -15,13 +15,13 @@ export default async function middleware(req: NextRequest) {
   const cookie = req.cookies.get('session')?.value;
   const session = await decrypt(cookie);
 
-  if (isProtectedRoute && !session?.userId) {
+  if (isProtectedRoute && !session?.user?.id) {
     return NextResponse.redirect(
       new URL(`/login?redirect=${encodeURIComponent(path)}`, req.nextUrl)
     );
   }
 
-  if (isPublicRoute && session?.userId) {
+  if (isPublicRoute && session?.user?.id) {
     return NextResponse.redirect(new URL('/', req.nextUrl));
   }
 
