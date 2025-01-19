@@ -14,7 +14,7 @@ import {
 } from '../ui/sheet';
 import { AuthButtons, NavItems } from './components';
 
-export default function Header({ isAuth }: { isAuth: boolean }) {
+export default function Header() {
   const pathname = usePathname();
 
   const { ref, visible } = useElementIsVisible({ initialVisible: true });
@@ -38,7 +38,7 @@ export default function Header({ isAuth }: { isAuth: boolean }) {
 
           <NavItems className="hidden lg:flex" />
 
-          <AuthButtons className="hidden lg:flex" isAuth={isAuth} />
+          <AuthButtons className="hidden lg:flex" />
 
           <div className="block lg:hidden">
             <Sheet>
@@ -55,10 +55,7 @@ export default function Header({ isAuth }: { isAuth: boolean }) {
 
                 <NavItems className="flex flex-grow lg:hidden [&>ul]:flex-col" />
 
-                <AuthButtons
-                  className="flex justify-center lg:hidden"
-                  isAuth={isAuth}
-                />
+                <AuthButtons className="flex justify-center lg:hidden" />
               </SheetContent>
             </Sheet>
           </div>

@@ -1,3 +1,4 @@
+import { User } from '@prisma/client';
 import { z } from 'zod';
 
 export const loginSchema = z.object({
@@ -13,6 +14,7 @@ export type LoginSchemaErrorType = z.inferFlattenedErrors<
 
 export type LoginState =
   | {
+      user?: User;
       data?: LoginSchemaType;
       errors?: LoginSchemaErrorType;
       message?: string;

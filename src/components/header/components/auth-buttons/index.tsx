@@ -3,19 +3,16 @@ import Link from 'next/link';
 import { Button } from '@/components/ui/button';
 import { cn } from '@/lib/utils';
 import { logout } from '@/data/actions/auth';
+import { useAuth } from '@/providers/auth';
 
-export default function AuthButtons({
-  isAuth,
-  className,
-}: {
-  isAuth: boolean;
-  className?: string;
-}) {
-  const [loggedIn, action] = useActionState(logout, isAuth);
+export default function AuthButtons({ className }: { className?: string }) {
+  const { isAuth } = useAuth();
+
+  const [, action] = useActionState(logout, undefined);
 
   return (
     <div className={cn('gap-1', className)}>
-      {loggedIn ? (
+      {isAuth ? (
         <form action={action}>
           <Button className="w-24 text-white">Log out</Button>
         </form>

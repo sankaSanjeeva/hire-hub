@@ -13,10 +13,12 @@ export default function RedirectLink({
 }) {
   const searchParams = useSearchParams();
 
-  const redirect = encodeURIComponent(searchParams.get('redirect') ?? '');
+  const href = searchParams.get('redirect')
+    ? `${path}?redirect=${encodeURIComponent(searchParams.get('redirect')!)}`
+    : path;
 
   return (
-    <Link className="underline" href={`${path}?redirect=${redirect}`}>
+    <Link className="underline" href={href}>
       {children}
     </Link>
   );

@@ -1,18 +1,28 @@
 'use client';
 
-import { useActionState } from 'react';
-import { useSearchParams } from 'next/navigation';
+import { useActionState, useEffect } from 'react';
+import { useRouter, useSearchParams } from 'next/navigation';
 import Link from 'next/link';
 import { Input } from '@/components/ui/input';
 import { login } from '@/data/actions/auth';
+import { useAuth } from '@/providers/auth';
 import SubmitButton from '../submit-button';
 
 export default function LoginForm() {
   const searchParams = useSearchParams();
+  const router = useRouter();
 
-  const loginAndRedirect = login.bind(null, searchParams.get('redirect') ?? '');
+  const { setUser } = useAuth();
 
-  const [state, action] = useActionState(loginAndRedirect, undefined);
+  const [state, action] = useActionState(login, undefined);
+
+  useEffect(() => {
+    if (state?.user) {
+      setUser(state.user);
+      router.push(decodeURIComponent(searchParams.get('redirect') ?? ''));
+    }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [state?.user]);
 
   return (
     <form action={action} className="relative flex flex-col gap-6">

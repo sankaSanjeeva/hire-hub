@@ -2,10 +2,10 @@ import 'server-only';
 
 import { cookies } from 'next/headers';
 import { SignJWT, jwtVerify } from 'jose';
-import { redirect } from 'next/navigation';
+import { User } from '@prisma/client';
 
 export type SessionPayload = {
-  userId: string;
+  user?: Omit<User, 'passwordHash'>;
   expiresAt: Date;
 };
 
@@ -22,7 +22,7 @@ export async function encrypt(payload: SessionPayload) {
 
 export async function decrypt(session: string | undefined = '') {
   try {
-    const { payload } = await jwtVerify(session, key, {
+    const { payload } = await jwtVerify<SessionPayload>(session, key, {
       algorithms: ['HS256'],
     });
     return payload;
@@ -31,9 +31,11 @@ export async function decrypt(session: string | undefined = '') {
   }
 }
 
-export async function createSession(userId: string, to?: string) {
+export async function createSession(user: User) {
   const expiresAt = new Date(Date.now() + 7 * 24 * 60 * 60 * 1000);
-  const session = await encrypt({ userId, expiresAt });
+  // eslint-disable-next-line @typescript-eslint/no-unused-vars
+  const { passwordHash, ...rest } = user;
+  const session = await encrypt({ user: rest, expiresAt });
 
   (await cookies()).set('session', session, {
     httpOnly: true,
@@ -42,8 +44,6 @@ export async function createSession(userId: string, to?: string) {
     sameSite: 'lax',
     path: '/',
   });
-
-  redirect(to ? decodeURIComponent(to) : '/');
 }
 
 export async function readSession() {
@@ -73,5 +73,4 @@ export async function updateSession() {
 
 export async function deleteSession() {
   (await cookies()).delete('session');
-  redirect('/login');
 }

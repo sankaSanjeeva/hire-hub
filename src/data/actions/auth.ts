@@ -1,5 +1,6 @@
 'use server';
 
+import { redirect } from 'next/navigation';
 import bcrypt from 'bcrypt';
 import { createSession, deleteSession } from '@/lib/auth';
 import { loginSchema, LoginSchemaType, LoginState } from '@/validations/login';
@@ -11,7 +12,7 @@ import {
 import prisma from '@/lib/db';
 
 export async function signUp(
-  redirectUrl = '',
+  redirectUrl: string,
   _state: SignUpState,
   formData: FormData
 ): Promise<SignUpState> {
@@ -59,11 +60,10 @@ export async function signUp(
     };
   }
 
-  await createSession(user.id, redirectUrl);
+  redirect(redirectUrl);
 }
 
 export async function login(
-  redirectUrl = '',
   _state: LoginState,
   formData: FormData
 ): Promise<LoginState> {
@@ -100,11 +100,13 @@ export async function login(
     };
   }
 
-  await createSession(user.id, redirectUrl);
+  await createSession(user);
+
+  return { user, data };
 }
 
 export async function logout() {
   await deleteSession();
 
-  return false;
+  redirect('/login');
 }

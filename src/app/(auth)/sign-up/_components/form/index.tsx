@@ -11,7 +11,7 @@ export default function SignUpForm() {
 
   const signUpAndRedirect = signUp.bind(
     null,
-    searchParams.get('redirect') ?? ''
+    searchParams.get('redirect') ?? '/login'
   );
 
   const [state, action] = useActionState(signUpAndRedirect, undefined);
